@@ -21,7 +21,7 @@ function AccordionItem({ title, questions }) {
       </div>
 
       {open && (
-        <div className="accordion_body">
+        <div className="accordion_body form_ui">
           {questions.map((q) => (
             <QuesSelect
               key={q.name}
