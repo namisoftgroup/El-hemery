@@ -31,7 +31,6 @@ export default function Login() {
                 />
               </div>
 
-              {/* Remove: no reset password, no signup */}
 
               <SubmitButton
                 text={t("auth.signIn")}
