@@ -139,7 +139,8 @@ button {
   position: relative;
   overflow: hidden;
 
-  &::before, &::after {
+  &::before,
+  &::after {
     content: "";
     position: absolute;
     width: 170px;
@@ -169,5 +170,44 @@ button {
   .header-subtitle {
     font-size: 16px;
     color: #f0f0f0;
+  }
+
+  @media (max-width: 768px) {
+    padding: 35px;
+
+    .header-title {
+      font-size: 28px;
+      margin-top: 40px;
+    }
+
+    .header-subtitle {
+      font-size: 14px;
+    }
+
+    &::before,
+    &::after {
+      width: 130px;
+      height: 130px;
+      bottom: -60px;
+    }
+  }
+
+  @media (max-width: 480px) {
+
+    .header-title {
+      font-size: 22px;
+      margin-top: 35px;
+    }
+
+    .header-subtitle {
+      font-size: 12px;
+    }
+
+    &::before,
+    &::after {
+      width: 95px;
+      height: 95px;
+      bottom: -45px;
+    }
   }
 }

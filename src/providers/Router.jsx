@@ -8,6 +8,7 @@ import Contact from "../routes/Contact";
 import Faqs from "../routes/Faqs";
 import Duas from "../routes/Duas";
 import Profile from "../routes/Profile";
+import Notifications from "../routes/Notifications";
 
 export const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ export const router = createBrowserRouter([
        {
           path: "profile",
         element: <Profile />,
+      },
+       {
+          path: "notifications",
+        element: <Notifications />,
       }
     ],
   },

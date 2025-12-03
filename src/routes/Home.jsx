@@ -1,4 +1,5 @@
 import About from '../components/home/about'
+import Gallery from '../components/home/Gallery'
 // import Hero from '../components/home/hero'
 import HeroSection from '../components/home/HeroSection'
 import ServicesSection from '../components/home/Services'
@@ -12,6 +13,7 @@ export default function Home() {
     <About/>
     <ServicesSection />
     <Tasbeeh />
+    <Gallery />
     </>
   )
 }

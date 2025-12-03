@@ -17,7 +17,7 @@ export default function HeroSection() {
     }, []);
 
     return (
-        <section className={`new-hero ${fade ? "fade-in" : ""}`}>
+        <section className={`hero-section ${fade ? "fade-in" : ""}`}>
             {/* SLIDER BACKGROUND */}
             <Swiper
                 slidesPerView={1}

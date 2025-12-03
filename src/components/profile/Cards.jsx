@@ -1,37 +1,37 @@
-export default function Cards({ supervisors }) {
+import { useTranslation } from "react-i18next";
+
+export default function Cards({ user }) {
+    const { t } = useTranslation();
+
   return (
     <div className="cards-row">
-      <div className="personal-card">
-        <h2 className="section-title">المعلومات الأساسية</h2>
-        <ul className="personal-list">
-          <li>
-            <span className="label">المقعد في الباص :</span>
-            <span className="val">PH23456</span>
-          </li>
-          <li>
-            <span className="label">الاسم :</span>
-            <span className="val">أحمد محمد</span>
-          </li>
-          <li>
-            <span className="label">موقع السكن فندقي :</span>
-            <span className="val">خيمة رقم 45</span>
-          </li>
-          <li>
-            <span className="label">موقع السكن عرفات :</span>
-            <span className="val">خيمة رقم 45</span>
-          </li>
-          <li>
-            <span className="label">موقع السكن مزدلفة :</span>
-            <span className="val">خيمة رقم 45</span>
-          </li>
-        </ul>
-      </div>
+ <div className="personal-card">
+      <h2 className="section-title">{t("profileCards.basicInfo")}</h2>
+      <ul className="personal-list">
+        <li>
+          <span className="label">{t("profileCards.busSeat")}:</span>
+          <span className="val">{user.bus_position}</span>
+        </li>
+        <li>
+          <span className="label">{t("profileCards.name")}:</span>
+          <span className="val">{user.name}</span>
+        </li>
+        <li>
+          <span className="label">{t("profileCards.arafatPlace")}:</span>
+          <span className="val">{user.arafat_place}</span>
+        </li>
+        <li>
+          <span className="label">{t("profileCards.muzdalifahPlace")}:</span>
+          <span className="val">{user.muzdalifah_place}</span>
+        </li>
+      </ul>
+    </div>
 
       <div className="right-card">
         <div className="supervisors-card">
-          <h2 className="section-title">المشرفون</h2>
+<h2 className="section-title">{t("profile.supervisors")}</h2>
           <div className="supervisors-list compact">
-            {supervisors.map((s) => (
+            {user.supervisors?.map((s) => (
               <div className="supervisor-row" key={s.id}>
                 <a href={`tel:${s.phone}`} className="call-icon">
                   <i className="fa-solid fa-phone"></i>
@@ -45,12 +45,12 @@ export default function Cards({ supervisors }) {
           </div>
         </div>
 
-        <div className="companions-card">
-          <h2 className="section-title">مرتبطون معك</h2>
-          <div className="companions-list compact">
-            <div className="companion-item">ولاء علي السيد</div>
-            <div className="companion-item">سعيد احمد</div>
-          </div>
+        <div className="companions-list compact">
+          {user.companions?.map((companion, index) => (
+            <div className="companion-item" key={index}>
+              {companion.name}
+            </div>
+          ))}
         </div>
       </div>
     </div>

@@ -4,7 +4,7 @@
     rgba($second, 0.03) 0%,
     rgba($main, 0.03) 100%
   );
-
+    padding: 20px;
   .faq-wrapper {
     margin-top: 60px;
   }
@@ -257,28 +257,28 @@
     text-align: center;
     color: $white;
     position: relative;
-  &::before {
-    content: "";
-    position: absolute;
-    top: 15%;
-    right: -7%;
-    width: 150px;   
-    height: 150px;
-    background: url("/icons/patt.svg") no-repeat center/contain;
-    pointer-events: none;
-    opacity: 0.5;
-  }
+    &::before {
+      content: "";
+      position: absolute;
+      top: 15%;
+      right: -7%;
+      width: 150px;
+      height: 150px;
+      background: url("/icons/patt.svg") no-repeat center/contain;
+      pointer-events: none;
+      opacity: 0.5;
+    }
     &::after {
-    content: "";
-    position: absolute;
-    top: 15%;
-    left: -7%;
-    width: 150px;   
-    height: 150px;
-    background: url("/icons/patt.svg") no-repeat center/contain;
-    pointer-events: none;
-    opacity: 0.5;
-  }
+      content: "";
+      position: absolute;
+      top: 15%;
+      left: -7%;
+      width: 150px;
+      height: 150px;
+      background: url("/icons/patt.svg") no-repeat center/contain;
+      pointer-events: none;
+      opacity: 0.5;
+    }
     @media (max-width: 768px) {
       padding: 36px 24px;
     }
@@ -366,14 +366,15 @@
     }
   }
 }
-
+///////////
 .profile-page {
   background: linear-gradient(
     135deg,
     rgba($second, 0.03) 0%,
     rgba($main, 0.03) 100%
   );
-  padding-bottom: 40px;
+    padding: 20px;
+
   .top-info-card {
     background: linear-gradient(135deg, #fef5f5 0%, #ffffff 100%);
     border: 2px solid rgba($second, 0.1);
@@ -428,7 +429,7 @@
       .info-item {
         .label {
           display: block;
-          font-size: 11px;
+          font-size: 15px;
           font-weight: 700;
           color: rgba(0, 0, 0, 0.5);
           text-transform: uppercase;
@@ -454,7 +455,6 @@
     padding-bottom: 10px;
   }
 
-
   .cards-row {
     display: grid;
     grid-template-columns: 1fr 360px;
@@ -471,7 +471,7 @@
       border-radius: 12px;
       border: 1px solid rgba($second, 0.08);
       padding: 18px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.04);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
 
       .personal-list {
         list-style: none;
@@ -482,12 +482,14 @@
           display: flex;
           justify-content: space-between;
           padding: 12px 10px;
-          border-bottom: 1px solid rgba(0,0,0,0.04);
+          border-bottom: 1px solid rgba(0, 0, 0, 0.04);
 
-          &:last-child { border-bottom: none; }
+          &:last-child {
+            border-bottom: none;
+          }
 
           .label {
-            color: rgba(0,0,0,0.6);
+            color: rgba(0, 0, 0, 0.6);
             font-weight: 700;
             font-size: 13px;
           }
@@ -503,173 +505,251 @@
     }
 
     .right-card {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
+    flex: 1;
+    min-width: 280px;
+    background: $white;
+    border-radius: 12px;
+    padding: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+  }
 
-      .supervisors-card,
-      .companions-card {
-        background: $white;
-        border-radius: 12px;
-        border: 1px solid rgba($second, 0.08);
-        padding: 12px;
-        box-shadow: 0 6px 18px rgba(0,0,0,0.04);
-      }
+  .personal-card {
+    .section-title {
+      font-size: 18px;
+      margin-bottom: 12px;
+    }
 
-      .supervisors-list.compact {
+    .personal-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
         display: flex;
-        flex-direction: column;
-        gap: 10px;
+        justify-content: space-between;
+        padding: 6px 0;
+        border-bottom: 1px solid rgba($second, 0.08);
 
-        .supervisor-row {
-          display: flex;
-          gap: 12px;
-          align-items: center;
-          padding: 8px;
-          background: rgba($second, 0.02);
-          border-radius: 8px;
-
-          .call-icon {
-            width: 40px;
-            height: 40px;
-            background: $second;
-            color: $white;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-          }
-
-          .supervisor-info {
-            .supervisor-name { color: $main; font-weight: 800; }
-            .supervisor-position { color: rgba(0,0,0,0.45); font-size: 12px; }
-          }
-        }
-      }
-
-      .companions-list.compact {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-
-        .companion-item {
-          padding: 10px;
-          background: rgba($second, 0.03);
-          border-radius: 8px;
-          font-weight: 700;
+        .label {
+          font-weight: 600;
           color: $black;
         }
+
+        .val {
+          font-weight: 700;
+          color: $main;
+        }
       }
     }
+  }
+
+  .right-card {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .supervisors-card,
+    .companions-card {
+      .section-title {
+        font-size: 16px;
+        margin-bottom: 10px;
+      }
+    }
+
+    .supervisors-list.compact {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      .supervisor-row {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        padding: 8px;
+        background: rgba($second, 0.02);
+        border-radius: 8px;
+
+        .call-icon {
+          width: 40px;
+          height: 40px;
+          background: $second;
+          color: $white;
+          border-radius: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-decoration: none;
+        }
+
+        .supervisor-info {
+          display: flex;
+          flex-direction: column;
+
+          .supervisor-name {
+            color: $main;
+            font-weight: 800;
+          }
+
+          .supervisor-position {
+            color: rgba(0, 0, 0, 0.45);
+            font-size: 12px;
+          }
+        }
+      }
+    }
+
+    .companions-list.compact {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      .companion-item {
+        padding: 10px;
+        background: rgba($second, 0.03);
+        border-radius: 8px;
+        font-weight: 700;
+        color: $black;
+      }
+    }
+  }
   }
   .tabs-section {
-  margin-top: 40px;
-
-  .tabs-header {
-    display: flex;
-    gap: 12px;
-    background: rgba($main, 0.06);
-    padding: 10px;
-    border-radius: 12px;
-    margin-bottom: 20px;
-
-    button {
-      flex: 1;
-      padding: 12px;
-      background: $white;
-      border: 1px solid rgba($main, 0.15);
-      border-radius: 10px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: 0.2s;
-
-      &.active {
-        background: $main;
-        color: $white;
-        border-color: $main;
-      }
-
-      &:hover {
-        background: rgba($main, 0.1);
-      }
-    }
-  }
-
-  .tabs-content {
-    .tab-box {
-      background: $white;
-      padding: 20px;
-      border-radius: 12px;
-      border: 1px solid rgba($main, 0.1);
-      box-shadow: 0 6px 20px rgba(0,0,0,0.04);
-      font-size: 16px;
-      color: #333;
-      font-weight: 600;
-    }
-  }
-}
-.surveys {
-  .accordion_item {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    margin-bottom: 15px;
-
-    .accordion_header {
-      padding: 15px;
-      cursor: pointer;
+    margin-top: 40px;
+    .tabs-header {
       display: flex;
-      justify-content: space-between;
-      font-weight: bold;
-      background: #f7f7f7;
-      h4{
-        font-size: 18px;
+      gap: 12px;
+      background: rgba($main, 0.06);
+      padding: 10px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      button {
+        flex: 1;
+        padding: 12px;
+        background: $white;
+        border: 1px solid rgba($main, 0.15);
+        border-radius: 10px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: 0.2s;
+
+        &.active {
+          background: $main;
+          color: $white;
+          border-color: $main;
+        }
+
+        &:hover {
+          background: rgba($main, 0.1);
+        }
       }
     }
 
-    .accordion_body {
-      padding: 15px;
-      background: #fff;
+    .tabs-content {
+      .tab-box {
+        background: $white;
+        padding: 20px;
+        border-radius: 12px;
+        border: 1px solid rgba($main, 0.1);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
+        font-size: 16px;
+        color: #333;
+        font-weight: 600;
+      }
     }
   }
-}
-
-.yes_no_question {
-  margin-bottom: 20px;
-
-  .question-title {
-    margin-bottom: 10px;
-    font-weight: 600;
-  }
-
-  .options {
-    display: flex;
-    gap: 15px;
-
-    .option_card {
-      padding: 10px 25px;
+  .surveys {
+    .accordion_item {
       border: 1px solid #ddd;
       border-radius: 8px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: 0.3s;
-      background: #f5f5f5;
-      user-select: none;
+      margin-bottom: 15px;
 
-      input {
-        display: none; 
+      .accordion_header {
+        padding: 15px;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        font-weight: bold;
+        background: #f7f7f7;
+        h4 {
+          font-size: 18px;
+        }
       }
-    }
 
-    .option_card.active {
-      background: $main;
-      color: $white;
-      border-color: $main;
-      transform: scale(1.03);
+      .accordion_body {
+        padding: 15px;
+        background: #fff;
+      }
     }
   }
 }
+//////////
+.notifications-page {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 
-
+.container{
+.notify-card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  transition: 0.2s ease;
+margin-top: 20px;
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  }
 }
 
+.notify-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.notify-img {
+  width: 65px;
+  height: 65px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.notify-text {
+  h4 {
+    font-size: 16px;
+    margin: 0 0 5px;
+    font-weight: 700;
+    color: #222;
+  }
+
+  p {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+  }
+}
+
+.notify-time {
+  color: #999;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .notify-card {
+    flex-direction: column;
+    align-items: start;
+    gap: 10px;
+  }
+
+  .notify-time {
+    align-self: flex-end;
+  }
+}}}

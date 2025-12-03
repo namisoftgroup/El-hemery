@@ -27,12 +27,31 @@
     "oops": "عذراً!",
     "returnToHome": "العودة إلى الصفحة الرئيسية"
   },
+  "validation": {
+    "required": "هذا الحقل مطلوب",
+    "min": "يجب أن يكون طول النص على الأقل {{min}} أحرف"
+  },
   "auth": {
-  "loginTitle": "تسجيل الدخول",
-  "loginWithIdOnly": "من فضلك أدخل رقم الهوية لتسجيل الدخول",
-  "idNumber": "رقم الهوية",
-  "enterIdNumber": "أدخل رقم الهوية",
-  "signIn": "تسجيل دخول"
-}
+    "loginTitle": "تسجيل الدخول",
+    "SubTitle": "قم بتسجيل الدخول باستخدام رقم ملفك فقط",
+    "loginWithIdOnly": "من فضلك أدخل رقم الهوية لتسجيل الدخول",
+    "idNumber": "رقم الهوية",
+    "enterIdNumber": "أدخل رقم الهوية",
+    "signIn": "تسجيل دخول",
+    "logout_success": " تم تسجيل الخروج بنجاح"
+  },
+  "profile": {
+    "Title": " الملف الشخصي",
+    "SubTitle": "معلوماتك الشخصية ورقم ملفك",
+    "name": "الاسم",
+    "idNumber": "رقم الهوية",
+    "groupNumber": "رقم المجموعة",
+    "bookingNumber": "رقم الحجز",
+    "basicInfo": "المعلومات الأساسية",
+    "busSeat": "المقعد في الباص",
+    "arafatPlace": "موقع السكن فندقي",
+    "muzdalifahPlace": "موقع السكن مزدلفة",
+    "supervisors": "المشرفون"
 
+  }
 }

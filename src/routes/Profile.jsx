@@ -1,33 +1,26 @@
-import { useState } from "react";
+// import { useState } from "react";
 import PageHeader from "../components/PageHeader";
 import InfoCard from "../components/profile/InfoCard";
 import Cards from "../components/profile/Cards";
 import Tabs from "../components/profile/Tabs";
-
+import useAuth from "../hooks/useAuth";
+import { useTranslation } from "react-i18next";
 export default function Profile() {
-  const [userData] = useState({
-    name: "أحمد محمد",
-    phone: "+966 50 123 4567",
-    registrationNumber: "PH23456",
-    age: 45,
-    gender: "ذكر",
-    residenceAddress: "الرياض، المملكة العربية السعودية",
-    iqamaNumber: "1234567890",
-    image: "/images/2.png",
-  });
+  const { loading, profile, isAuthed } = useAuth();
+  const { t } = useTranslation();
 
-  const [supervisors] = useState([
-    { id: 1, name: "أحمد محمد", position: "قائد المجموعة", phone: "+966501112222" },
-    { id: 2, name: "محمود علي", position: "مدير المشرفين", phone: "+966503334444" },
-    { id: 3, name: "محمد سمير", position: "منسق طلبات الحجاج", phone: "+966505556666" },
-  ]);
+  if (loading) return <p>Loading...</p>;
+  if (!isAuthed) return <p>Please login to view profile</p>;
+
 
   return (
     <main className="profile-page">
-      <PageHeader title="الملف الشخصي" subtitle="معلوماتك الشخصية ورقم ملفك" />
+      <PageHeader title= {t("profile.Title")} subtitle= {t("profile.SubTitle")} />
       <div className="container">
-        <InfoCard user={userData} />
-        <Cards supervisors={supervisors} />
+        {profile && <InfoCard user={profile} />}
+                {profile && <Cards user={profile} />}
+
+          {/* <Cards supervisors={supervisors} /> */}
         <Tabs />
       </div>
     </main>

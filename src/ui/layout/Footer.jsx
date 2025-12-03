@@ -33,9 +33,9 @@ export default function Footer() {
     <footer className="footer">
       <div className="footer-top">
         <div className="container">
-          <div className="footer-grid">
+<div className="row footer-grid">
             {/* Company Info */}
-            <div className="footer-col">
+  <div className="col-lg-3 col-md-4 col-6 footer-col">
               <div className="footer-logo">
                 <img src="/images/logo.svg" alt="الحميري" />
 
@@ -60,7 +60,7 @@ export default function Footer() {
             </div>
 
             {/* Quick Links */}
-            <div className="footer-col">
+  <div className="col-lg-3 col-md-4 col-6 footer-col">
               <h4 className="footer-title">روابط سريعة</h4>
               <ul className="footer-list">
                 {quickLinks.map((link, i) => (
@@ -76,7 +76,7 @@ export default function Footer() {
             </div>
 
             {/* Services */}
-            <div className="footer-col">
+  <div className="col-lg-3 col-md-4 col-6 footer-col">
               <h4 className="footer-title">الخدمات</h4>
               <ul className="footer-list">
                 {services.map((service, i) => (
@@ -92,7 +92,7 @@ export default function Footer() {
             </div>
 
             {/* Contact Info */}
-            <div className="footer-col">
+  <div className="col-lg-3 col-md-4 col-6 footer-col">
               <h4 className="footer-title">تواصل معنا</h4>
               <ul className="footer-contact">
                 {contact.map((item, i) => (

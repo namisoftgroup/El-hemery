@@ -1,30 +1,37 @@
+import { useTranslation } from "react-i18next";
+
 export default function InfoCard({ user }) {
+    const { t } = useTranslation();
+  
   return (
     <div className="top-info-card">
       <div className="logo-section">
         <div className="logo-box">
-          <img src={user.image} alt={user.name} />
+          <img src={"/images/2.png"} alt={user.name} />
         </div>
       </div>
 
       <div className="info-grid">
-        <div className="info-item">
-          <span className="label">المقعد في الباص</span>
-          <span className="value">{user.registrationNumber}</span>
-        </div>
-        <div className="info-item">
-          <span className="label">رقم الهاتف</span>
-          <span className="value">{user.phone}</span>
-        </div>
-        <div className="info-item">
-          <span className="label">رقم الإقامة</span>
-          <span className="value">{user.iqamaNumber}</span>
-        </div>
-        <div className="info-item">
-          <span className="label">رقم الملف</span>
-          <span className="value">14</span>
-        </div>
+      <div className="info-item">
+        <span className="label">{t("profile.name")}</span>
+        <span className="value">{user.name}</span>
       </div>
+
+      <div className="info-item">
+        <span className="label">{t("profile.idNumber")}</span>
+        <span className="value">{user.id_number}</span>
+      </div>
+
+      <div className="info-item">
+        <span className="label">{t("profile.groupNumber")}</span>
+        <span className="value">{user.group}</span>
+      </div>
+
+      <div className="info-item">
+        <span className="label">{t("profile.bookingNumber")}</span>
+        <span className="value">{user.booking_number}</span>
+      </div>
+    </div>
     </div>
   );
 }

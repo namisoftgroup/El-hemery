@@ -27,12 +27,31 @@
     "oops": "Oops!",
     "returnToHome": "Return To Home"
   },
+  "validation": {
+    "required": "This field is required",
+    "min": "The text must be at least {{min}} characters long"
+  },
   "auth": {
-  "loginTitle": "Login",
-  "loginWithIdOnly": "Please enter your ID number to log in",
-  "idNumber": "ID Number",
-  "enterIdNumber": "Enter ID Number",
-  "signIn": "Sign In"
-}
+    "loginTitle": "Login",
+    "SubTitle": "Log in using your ID number only",
+    "loginWithIdOnly": "Please enter your ID number to log in",
+    "idNumber": "ID Number",
+    "enterIdNumber": "Enter ID Number",
+    "signIn": "Sign In",
+    "logout_success": " logout successfully"
+  },
+  "profile": {
+    "Title": "Profile",
+    "SubTitle": "Your personal information and file number",
+    "name": "Name",
+    "idNumber": "ID Number",
+    "groupNumber": "Group Number",
+    "bookingNumber": "Booking Number",
+    "basicInfo": "Basic Information",
+    "busSeat": "Bus Seat",
+    "arafatPlace": "Arafat Accommodation",
+    "muzdalifahPlace": "Muzdalifah Accommodation",
+    "supervisors": "Supervisors"
 
+  }
 }
