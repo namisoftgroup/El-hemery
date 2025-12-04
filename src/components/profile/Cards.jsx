@@ -1,35 +1,35 @@
 import { useTranslation } from "react-i18next";
 
 export default function Cards({ user }) {
-    const { t } = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <div className="cards-row">
- <div className="personal-card">
-      <h2 className="section-title">{t("profileCards.basicInfo")}</h2>
-      <ul className="personal-list">
-        <li>
-          <span className="label">{t("profileCards.busSeat")}:</span>
-          <span className="val">{user.bus_position}</span>
-        </li>
-        <li>
-          <span className="label">{t("profileCards.name")}:</span>
-          <span className="val">{user.name}</span>
-        </li>
-        <li>
-          <span className="label">{t("profileCards.arafatPlace")}:</span>
-          <span className="val">{user.arafat_place}</span>
-        </li>
-        <li>
-          <span className="label">{t("profileCards.muzdalifahPlace")}:</span>
-          <span className="val">{user.muzdalifah_place}</span>
-        </li>
-      </ul>
-    </div>
+      <div className="personal-card">
+        <h2 className="section-title">{t("profile.basicInfo")}</h2>
+        <ul className="personal-list">
+          <li>
+            <span className="label">{t("profile.busSeat")}:</span>
+            <span className="val">{user.bus_position}</span>
+          </li>
+          <li>
+            <span className="label">{t("profile.name")}:</span>
+            <span className="val">{user.name}</span>
+          </li>
+          <li>
+            <span className="label">{t("profile.arafatPlace")}:</span>
+            <span className="val">{user.arafat_place}</span>
+          </li>
+          <li>
+            <span className="label">{t("profile.muzdalifahPlace")}:</span>
+            <span className="val">{user.muzdalifah_place}</span>
+          </li>
+        </ul>
+      </div>
 
       <div className="right-card">
         <div className="supervisors-card">
-<h2 className="section-title">{t("profile.supervisors")}</h2>
+          <h2 className="section-title">{t("profile.supervisors")}</h2>
           <div className="supervisors-list compact">
             {user.supervisors?.map((s) => (
               <div className="supervisor-row" key={s.id}>

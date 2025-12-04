@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap");
 @keyframes pulse {
   0% {
     background-color: #e0e0e0;
@@ -347,11 +347,6 @@ body .user_dropdown {
   gap: 4px;
   font-weight: 600;
   font-size: 14px;
-}
-@media screen and (max-width: 991px) {
-  body .user_dropdown {
-    display: none;
-  }
 }
 @media screen and (max-width: 450px) {
   body .user_dropdown {
@@ -898,11 +893,6 @@ body .hero-section {
   text-align: center;
   color: #fff;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-}
-@media (max-width: 768px) {
-  body .hero-section {
-    height: 90vh;
-  }
 }
 body .hero-section .overlay {
   position: absolute;
@@ -1673,6 +1663,11 @@ body .auth_section .col-lg-6 {
   justify-content: center;
   min-height: 70vh;
 }
+@media (max-width: 768px) {
+  body .auth_section .col-lg-6 {
+    min-height: 50vh;
+  }
+}
 body .auth_section .img {
   width: 100%;
   height: 100%;
@@ -1921,6 +1916,28 @@ body .faq-page .tab-content-wrapper .accordion .accordion-item .accordion-body .
 }
 body .faq-page .tab-content-wrapper .accordion .accordion-item.active .accordion-body {
   max-height: 600px;
+}
+body .faq-page .tab-content-wrapper .accordion .accordion-item.skeleton {
+  opacity: 0.6;
+  pointer-events: none;
+}
+body .faq-page .tab-content-wrapper .accordion .accordion-item.skeleton .skeleton-line {
+  background: #e0e0e0;
+  height: 16px;
+  margin: 8px 0;
+  border-radius: 4px;
+  animation: pulse 1.2s infinite ease-in-out;
+}
+@keyframes pulse {
+  0% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.6;
+  }
 }
 body .faq-page .faq-cta {
   background: linear-gradient(135deg, #8E1838 0%, rgb(107.0987951807, 18.1012048193, 42.2361445783) 100%);
@@ -2329,6 +2346,31 @@ body .notifications-page .container .notify-card:hover {
   transform: translateY(-3px);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
 }
+body .notifications-page .container .notify-card.skeleton .content {
+  width: 100%;
+}
+body .notifications-page .container .notify-card.skeleton .content span {
+  max-width: 48px;
+}
+body .notifications-page .container .notify-card.skeleton .skeleton-img {
+  min-width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: #e0e0e0;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+body .notifications-page .container .notify-card.skeleton .skeleton-text {
+  background: #e0e0e0;
+  height: 16px;
+  border-radius: 4px;
+  animation: pulse 1.5s ease-in-out infinite;
+  width: calc(50% - 4px);
+}
+body .notifications-page .container .notify-card.skeleton .skeleton-text.skeleton-title {
+  width: calc(70% - 4px);
+  height: 20px;
+  animation: pulse 1.5s ease-in-out infinite;
+}
 body .notifications-page .container .notify-left {
   display: flex;
   align-items: center;
@@ -2446,7 +2488,7 @@ body main {
   min-height: calc(100dvh - 300px);
 }
 body.en {
-  font-family: "Nunito", sans-serif;
+  font-family: "Lato", sans-serif;
   direction: ltr;
 }
 body.en .form_ui .input-field .pass-group input {

@@ -9,6 +9,7 @@ import Faqs from "../routes/Faqs";
 import Duas from "../routes/Duas";
 import Profile from "../routes/Profile";
 import Notifications from "../routes/Notifications";
+import ProtectionProvider from "./ProtectionProvider";
 
 export const router = createBrowserRouter([
   {
@@ -20,28 +21,33 @@ export const router = createBrowserRouter([
         index: true,
         element: <Home />,
       },
-       {
+      {
         path: "signin",
         element: <Login />,
       },
       {
-          path: "contact",
+        path: "contact",
         element: <Contact />,
       },
-         {
-          path: "faqs",
+      {
+        path: "faqs",
         element: <Faqs />,
       },
-       {
-          path: "daus",
+      {
+        path: "daus",
         element: <Duas />,
       },
-       {
-          path: "profile",
-        element: <Profile />,
+      {
+        path: "profile",
+
+        element:
+          <ProtectionProvider>
+            <Profile />
+          </ProtectionProvider>
+
       },
-       {
-          path: "notifications",
+      {
+        path: "notifications",
         element: <Notifications />,
       }
     ],

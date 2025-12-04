@@ -6,22 +6,21 @@ body {
   overflow-x: hidden;
   scrollbar-width: none;
   font-family: "Cairo", sans-serif;
-background-color: #8e183713 !important;
+  background-color: #8e183713 !important;
   @import "./scss/layout";
   @import "./scss/form_ui";
   @import "./scss/error-page";
-@import "./scss/home";
-@import "./scss/auth_section";
-@import "./scss/faq";
-@import "./scss/duas";
+  @import "./scss/home";
+  @import "./scss/auth_section";
+  @import "./scss/faq";
+  @import "./scss/duas";
   main {
     min-height: calc(100dvh - 300px);
   }
 
-&.en {
-  font-family: "Nunito", sans-serif;
-  direction: ltr;
-
+  &.en {
+    font-family: "Lato", sans-serif;
+    direction: ltr;
 
     .form_ui .input-field .pass-group {
       input {

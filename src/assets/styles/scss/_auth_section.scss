@@ -6,7 +6,7 @@
   background-repeat: no-repeat;
   .row {
     justify-content: space-between;
-    align-items: center; 
+    align-items: center;
   }
 
   .col-lg-6 {
@@ -14,6 +14,9 @@
     flex-direction: column;
     justify-content: center;
     min-height: 70vh;
+    @media (max-width: 768px) {
+      min-height: 50vh;
+    }
   }
 
   .img {

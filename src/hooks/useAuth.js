@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useCookies } from "react-cookie";
 import { setClientData } from "../redux/slices/clientData";
 import axiosInstance from "../utils/axiosInstance";
-import useGetProfile from "./useGetProfile";
+import useGetProfile from "./profile/useGetProfile";
 
 export default function useAuth() {
   const dispatch = useDispatch();

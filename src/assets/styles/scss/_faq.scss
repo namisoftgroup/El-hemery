@@ -4,7 +4,7 @@
     rgba($second, 0.03) 0%,
     rgba($main, 0.03) 100%
   );
-    padding: 20px;
+  padding: 20px;
   .faq-wrapper {
     margin-top: 60px;
   }
@@ -246,6 +246,25 @@
         &.active .accordion-body {
           max-height: 600px;
         }
+        &.skeleton {
+  opacity: 0.6;
+  pointer-events: none;
+
+
+.skeleton-line {
+  background: #e0e0e0;
+  height: 16px;
+  margin: 8px 0;
+  border-radius: 4px;
+  animation: pulse 1.2s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+        }
       }
     }
   }
@@ -373,7 +392,7 @@
     rgba($second, 0.03) 0%,
     rgba($main, 0.03) 100%
   );
-    padding: 20px;
+  padding: 20px;
 
   .top-info-card {
     background: linear-gradient(135deg, #fef5f5 0%, #ffffff 100%);
@@ -505,113 +524,113 @@
     }
 
     .right-card {
-    flex: 1;
-    min-width: 280px;
-    background: $white;
-    border-radius: 12px;
-    padding: 12px;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
-  }
-
-  .personal-card {
-    .section-title {
-      font-size: 18px;
-      margin-bottom: 12px;
+      flex: 1;
+      min-width: 280px;
+      background: $white;
+      border-radius: 12px;
+      padding: 12px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
     }
 
-    .personal-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
+    .personal-card {
+      .section-title {
+        font-size: 18px;
+        margin-bottom: 12px;
+      }
 
-      li {
+      .personal-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+          display: flex;
+          justify-content: space-between;
+          padding: 6px 0;
+          border-bottom: 1px solid rgba($second, 0.08);
+
+          .label {
+            font-weight: 600;
+            color: $black;
+          }
+
+          .val {
+            font-weight: 700;
+            color: $main;
+          }
+        }
+      }
+    }
+
+    .right-card {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+
+      .supervisors-card,
+      .companions-card {
+        .section-title {
+          font-size: 16px;
+          margin-bottom: 10px;
+        }
+      }
+
+      .supervisors-list.compact {
         display: flex;
-        justify-content: space-between;
-        padding: 6px 0;
-        border-bottom: 1px solid rgba($second, 0.08);
+        flex-direction: column;
+        gap: 10px;
 
-        .label {
-          font-weight: 600;
+        .supervisor-row {
+          display: flex;
+          gap: 12px;
+          align-items: center;
+          padding: 8px;
+          background: rgba($second, 0.02);
+          border-radius: 8px;
+
+          .call-icon {
+            width: 40px;
+            height: 40px;
+            background: $second;
+            color: $white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+          }
+
+          .supervisor-info {
+            display: flex;
+            flex-direction: column;
+
+            .supervisor-name {
+              color: $main;
+              font-weight: 800;
+            }
+
+            .supervisor-position {
+              color: rgba(0, 0, 0, 0.45);
+              font-size: 12px;
+            }
+          }
+        }
+      }
+
+      .companions-list.compact {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        .companion-item {
+          padding: 10px;
+          background: rgba($second, 0.03);
+          border-radius: 8px;
+          font-weight: 700;
           color: $black;
         }
-
-        .val {
-          font-weight: 700;
-          color: $main;
-        }
       }
     }
-  }
-
-  .right-card {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-
-    .supervisors-card,
-    .companions-card {
-      .section-title {
-        font-size: 16px;
-        margin-bottom: 10px;
-      }
-    }
-
-    .supervisors-list.compact {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-
-      .supervisor-row {
-        display: flex;
-        gap: 12px;
-        align-items: center;
-        padding: 8px;
-        background: rgba($second, 0.02);
-        border-radius: 8px;
-
-        .call-icon {
-          width: 40px;
-          height: 40px;
-          background: $second;
-          color: $white;
-          border-radius: 8px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          text-decoration: none;
-        }
-
-        .supervisor-info {
-          display: flex;
-          flex-direction: column;
-
-          .supervisor-name {
-            color: $main;
-            font-weight: 800;
-          }
-
-          .supervisor-position {
-            color: rgba(0, 0, 0, 0.45);
-            font-size: 12px;
-          }
-        }
-      }
-    }
-
-    .companions-list.compact {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-
-      .companion-item {
-        padding: 10px;
-        background: rgba($second, 0.03);
-        border-radius: 8px;
-        font-weight: 700;
-        color: $black;
-      }
-    }
-  }
   }
   .tabs-section {
     margin-top: 40px;
@@ -690,66 +709,96 @@
   flex-direction: column;
   gap: 16px;
 
-.container{
-.notify-card {
-  background: #fff;
-  border-radius: 14px;
-  padding: 16px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-  transition: 0.2s ease;
-margin-top: 20px;
-  &:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  .container {
+    .notify-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 16px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+      transition: 0.2s ease;
+      margin-top: 20px;
+      &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      }
+      &.skeleton {
+        .content {
+          width: 100%;
+
+          span {
+            max-width: 48px;
+          }
+        }
+        .skeleton-img {
+          min-width: 54px;
+          height: 54px;
+          border-radius: 50%;
+          background: #e0e0e0;
+          animation: pulse 1.5s ease-in-out infinite;
+        }
+        .skeleton-text {
+          background: #e0e0e0;
+          height: 16px;
+          border-radius: 4px;
+          animation: pulse 1.5s ease-in-out infinite;
+          width: calc(50% - 4px);
+          &.skeleton-title {
+            width: calc(70% - 4px);
+            height: 20px;
+            animation: pulse 1.5s ease-in-out infinite;
+          }
+        }
+      }
+    }
+
+    .notify-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .notify-img {
+      width: 65px;
+      height: 65px;
+      border-radius: 12px;
+      object-fit: cover;
+    }
+
+    .notify-text {
+      h4 {
+        font-size: 16px;
+        margin: 0 0 5px;
+        font-weight: 700;
+        color: #222;
+      }
+
+      p {
+        margin: 0;
+        font-size: 14px;
+        color: #666;
+      }
+    }
+
+    .notify-time {
+      color: #999;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .notify-card {
+        flex-direction: column;
+        align-items: start;
+        gap: 10px;
+      }
+
+      .notify-time {
+        align-self: flex-end;
+      }
+    }
   }
 }
-
-.notify-left {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.notify-img {
-  width: 65px;
-  height: 65px;
-  border-radius: 12px;
-  object-fit: cover;
-}
-
-.notify-text {
-  h4 {
-    font-size: 16px;
-    margin: 0 0 5px;
-    font-weight: 700;
-    color: #222;
-  }
-
-  p {
-    margin: 0;
-    font-size: 14px;
-    color: #666;
-  }
-}
-
-.notify-time {
-  color: #999;
-  font-size: 13px;
-  white-space: nowrap;
-}
-
-/* Responsive */
-@media (max-width: 600px) {
-  .notify-card {
-    flex-direction: column;
-    align-items: start;
-    gap: 10px;
-  }
-
-  .notify-time {
-    align-self: flex-end;
-  }
-}}}

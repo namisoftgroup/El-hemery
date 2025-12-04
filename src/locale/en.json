@@ -52,6 +52,34 @@
     "arafatPlace": "Arafat Accommodation",
     "muzdalifahPlace": "Muzdalifah Accommodation",
     "supervisors": "Supervisors"
-
+  },
+    "notifications":{
+    "Title":"Notifications",
+    "SubTitle":"Stay up-to-date with the latest updates and alerts."
+  },
+ "faqs": {
+    "Title": "FAQs & Guidelines",
+    "SubTitle": "Everything you need to know about your journey",
+    "guides": "Guidance & Instructional Manual",
+    "mostCommon": "Most Common Questions",
+    "carTravelers": "Travelers with their Cars",
+    "routePlan": "Route & Return Plan",
+    "ctaTitle": "Didn't find what you're looking for?",
+    "ctaSubtitle": "Contact us directly and our team will be happy to answer all your inquiries",
+    "callUs": "Call Us",
+    "sendMessage": "Send Message"
+  },
+  "hero": {
+    "title": "Your Spiritual Journey",
+    "subtitle": "Starts Here",
+    "description": "We provide full Hajj and Umrah services at Al Hamiry with the highest standards of comfort and safety for pilgrims.",
+    "readMore": "Read More",
+    "contactUs": "Contact Us",
+    "stats": {
+      "experience": "Years of Experience",
+      "hajjPilgrims": "Pilgrims Served",
+      "countries": "Clients Worldwide"
+    }
   }
+
 }
