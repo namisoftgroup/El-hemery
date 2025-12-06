@@ -1527,7 +1527,10 @@ body .tasbeeh-section .tasbeeh-wrapper .tasbeeh-stats .tips-card .tips-list li:l
 }
 body .gallery-section {
   padding: 50px 0;
-  background-color: #fbf4f4;
+  background-image: url("../images/hed.png");
+  background-size: cover;
+  background-position: unset;
+  background-repeat: no-repeat;
 }
 body .gallery-section .gallery-title {
   text-align: center;
@@ -1645,6 +1648,259 @@ body .contact-page .contact-img .contact-img img {
      object-fit: cover;
   width: 100%;
   border-radius: 14px;
+}
+body .locations-section {
+  padding: 50px 0;
+  background: linear-gradient(180deg, #fbf4f4 0%, #fff 100%);
+  position: relative;
+}
+body .locations-section::before {
+  content: "";
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: url("/icons/patt.svg") no-repeat center/contain;
+  pointer-events: none;
+  opacity: 0.3;
+  z-index: 111;
+  top: -10%;
+  left: -20%;
+}
+body .locations-section .title {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 30px;
+  color: #8E1838;
+}
+body .locations-section .map-bg {
+  position: relative;
+  height: 450px;
+  background-image: url("/images/map.jpg");
+  background-size: cover;
+  background-position: center;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  overflow: visible;
+}
+body .locations-section .map-pin {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 5;
+}
+body .locations-section .map-pin .pin-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #8E1838;
+  border: 2px solid #fff;
+  box-shadow: 0 6px 14px rgba(247, 148, 29, 0.3);
+  animation: pulse 1.5s infinite ease-in-out;
+}
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(247, 148, 29, 0.6);
+  }
+  50% {
+    box-shadow: 0 0 10px 6px rgba(247, 148, 29, 0.4);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(247, 148, 29, 0);
+  }
+}
+body .locations-section .map-pin .pin-label {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 6px 12px;
+  border-radius: 20px;
+  white-space: nowrap;
+  font-size: 14px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
+body .locations-section .map-pin:hover .pin-label, body .locations-section .map-pin.clicked .pin-label {
+  transform: translateY(-6px) scale(1.05);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.14);
+}
+body .locations-section .map-pin .pin-card {
+  position: absolute;
+  left: 50%;
+  top: -16px;
+  transform: translate(-50%, -110%);
+  width: 300px;
+  background: #fff;
+  padding: 14px;
+  border-radius: 12px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.1);
+  z-index: 50;
+  animation: fadeUp 200ms ease;
+}
+body .locations-section .map-pin .pin-card .card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+body .locations-section .map-pin .pin-card .card-head h4 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+}
+body .locations-section .map-pin .pin-card .card-head .close-btn {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: none;
+  background: #f3f3f3;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s ease;
+}
+body .locations-section .map-pin .pin-card .card-head .close-btn i {
+  font-size: 14px;
+  color: #333;
+}
+body .locations-section .map-pin .pin-card .card-head .close-btn:hover {
+  background: #eee;
+  transform: scale(1.1);
+}
+body .locations-section .map-pin .pin-card .card-contacts {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+body .locations-section .map-pin .pin-card .card-contacts .contact-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+body .locations-section .map-pin .pin-card .card-contacts .contact-row .contact-info .c-name {
+  font-weight: 700;
+  font-size: 14px;
+}
+body .locations-section .map-pin .pin-card .card-contacts .contact-row .contact-info .c-role {
+  font-size: 12px;
+  color: #777;
+}
+body .locations-section .map-pin .pin-card .card-contacts .contact-row .contact-actions {
+  display: flex;
+  gap: 8px;
+}
+body .locations-section .map-pin .pin-card .card-contacts .contact-row .contact-actions .contact-btn {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  border-radius: 8px;
+}
+body .locations-section .map-pin .pin-card .card-contacts .contact-row .contact-actions .call {
+  background: #8E1838;
+}
+body .locations-section .map-pin .pin-card .card-contacts .contact-row .contact-actions .whatsapp {
+  background: #25d366;
+}
+body .locations-section .map-pin .pin-card .card-footer {
+  margin-top: 12px;
+  display: flex;
+  justify-content: flex-end;
+}
+body .locations-section .map-pin .pin-card .card-footer .visit {
+  background: #222;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+}
+body .locations-section .map-pin .pin-card .card-close {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -100%) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -110%) translateY(0);
+  }
+}
+@media (max-width: 768px) {
+  body .locations-section .map-bg {
+    background-position: center;
+  }
+  body .locations-section .map-pin {
+    gap: 6px;
+    transform: none;
+  }
+  body .locations-section .map-pin .pin-dot {
+    width: 18px;
+    height: 18px;
+  }
+  body .locations-section .map-pin .pin-label {
+    display: block;
+    font-size: 13px;
+    padding: 4px 10px;
+  }
+  body .locations-section .map-pin .pin-card {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 18px;
+    z-index: 1111;
+  }
+  body .locations-section .map-pin .pin-card .card-head h4 {
+    font-size: 16px;
+  }
+  body .locations-section .map-pin .pin-card .card-contacts {
+    gap: 14px;
+  }
+  body .locations-section .map-pin .pin-card .card-contacts .contact-row {
+    align-items: flex-start;
+    gap: 8px;
+  }
+  body .locations-section .map-pin .pin-card .card-contacts .contact-row .contact-info .c-name {
+    font-size: 15px;
+  }
+  body .locations-section .map-pin .pin-card .card-contacts .contact-row .contact-info .c-role {
+    font-size: 13px;
+  }
+  body .locations-section .map-pin .pin-card .card-contacts .contact-row .contact-actions {
+    display: flex;
+    justify-content: flex-start;
+    gap: 12px;
+  }
+  body .locations-section .map-pin .pin-card .card-contacts .contact-row .contact-actions .contact-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+  }
+  body .locations-section .map-pin .pin-card .card-contacts .contact-row .contact-actions .contact-btn i {
+    font-size: 18px;
+  }
+  body .locations-section .map-pin .pin-card .card-footer {
+    margin-top: 16px;
+    display: flex;
+    justify-content: center;
+  }
+  body .locations-section .map-pin .pin-card .card-footer .visit {
+    width: 100%;
+    text-align: center;
+    padding: 12px 16px;
+    font-size: 15px;
+    border-radius: 10px;
+  }
 }
 body .auth_section {
   padding: 20px;

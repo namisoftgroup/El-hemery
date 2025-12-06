@@ -80,6 +80,56 @@
       "hajjPilgrims": "Pilgrims Served",
       "countries": "Clients Worldwide"
     }
+  },
+  "footer": {
+    "description": "We provide integrated Hajj and Umrah services with the highest standards of comfort and safety for pilgrims for over 15 years.",
+    "titles": {
+      "quickLinks": "Quick Links",
+      "services": "Services",
+      "contact": "Contact Us"
+    },
+    "quickLinks": {
+      "home": "Home",
+      "about": "About",
+      "services": "Services",
+      "faqs": "FAQ"
+    },
+    "services": {
+      "hajj": "Hajj",
+      "umrah": "Umrah",
+      "consulting": "Consulting",
+      "religiousTrips": "Religious Trips"
+    },
+    "contact": {
+      "phone": "+966 50 123 4567",
+      "email": "info@alhemery.com",
+      "address": "Riyadh, Saudi Arabia"
+    },
+    "social": {
+      "facebook": "Facebook",
+      "twitter": "Twitter",
+      "instagram": "Instagram",
+      "whatsapp": "WhatsApp"
+    },
+    "bottom": {
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Use",
+      "contact": "Contact Us"
+    },
+    "rights": "All rights reserved"
+  },
+  
+  "locations": {
+    "title": "Our Locations",
+    "loadingBranches": "Loading branches...",
+    "loadingDetails": "Loading details...",
+    "visitSite": "Visit Site",
+    "Branch1": "Main Branch",
+    "Branch2": "New Branch",
+    "Branch3": "West Branch"
   }
+
+
+
 
 }

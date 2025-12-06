@@ -1,48 +1,50 @@
+import { useTranslation } from "react-i18next";
 
 export default function Footer() {
+  const { t } = useTranslation();
   const currentYear = new Date().getFullYear();
 
   const quickLinks = [
-    { title: "الرئيسية", href: "#" },
-    { title: "عن الحميري", href: "#" },
-    { title: "الخدمات", href: "#" },
-    { title: "الباقات", href: "#" },
+    { title: t("footer.quickLinks.home"), href: "#" },
+    { title: t("footer.quickLinks.about"), href: "#" },
+    { title: t("footer.quickLinks.services"), href: "#" },
+    { title: t("footer.quickLinks.faqs"), href: "#" },
   ];
 
   const services = [
-    { title: "حج", href: "#" },
-    { title: "عمرة", href: "#" },
-    { title: "استشارات", href: "#" },
-    { title: "رحلات دينية", href: "#" },
+    { title: t("footer.services.hajj"), href: "#" },
+    { title: t("footer.services.umrah"), href: "#" },
+    { title: t("footer.services.consulting"), href: "#" },
+    { title: t("footer.services.religiousTrips"), href: "#" },
   ];
 
   const contact = [
-    { icon: "fa-phone", text: "+966 50 123 4567", href: "tel:+966501234567" },
-    { icon: "fa-envelope", text: "info@alhemery.com", href: "mailto:info@alhemery.com" },
-    { icon: "fa-location-dot", text: "الرياض، المملكة العربية السعودية", href: "#" },
+    { icon: "fa-phone", text: t("footer.contact.phone"), href: "tel:+966501234567" },
+    { icon: "fa-envelope", text: t("footer.contact.email"), href: "mailto:info@alhemery.com" },
+    { icon: "fa-location-dot", text: t("footer.contact.address"), href: "#" },
   ];
 
   const socials = [
-    { icon: "fa-facebook", href: "#", label: "فيسبوك" },
-    { icon: "fa-twitter", href: "#", label: "تويتر" },
-    { icon: "fa-instagram", href: "#", label: "انستقرام" },
-    { icon: "fa-whatsapp", href: "#", label: "واتس آب" },
+    { icon: "fa-facebook", href: "#", label: t("footer.social.facebook") },
+    { icon: "fa-twitter", href: "#", label: t("footer.social.twitter") },
+    { icon: "fa-instagram", href: "#", label: t("footer.social.instagram") },
+    { icon: "fa-whatsapp", href: "#", label: t("footer.social.whatsapp") },
   ];
 
   return (
     <footer className="footer">
       <div className="footer-top">
         <div className="container">
-<div className="row footer-grid">
+          <div className="row footer-grid">
+
             {/* Company Info */}
-  <div className="col-lg-3 col-md-4 col-6 footer-col">
+            <div className="col-lg-3 col-md-4 col-6 footer-col">
               <div className="footer-logo">
                 <img src="/images/logo.svg" alt="الحميري" />
-
               </div>
-              <p className="footer-desc">
-                نقدم خدمات حج وعمرة متكاملة بأعلى معايير الراحة والأمان لضيوف الرحمن منذ 15 سنة.
-              </p>
+
+              <p className="footer-desc">{t("footer.description")}</p>
+
               <div className="footer-socials">
                 {socials.map((social, i) => (
                   <a
@@ -60,8 +62,8 @@ export default function Footer() {
             </div>
 
             {/* Quick Links */}
-  <div className="col-lg-3 col-md-4 col-6 footer-col">
-              <h4 className="footer-title">روابط سريعة</h4>
+            <div className="col-lg-3 col-md-4 col-6 footer-col">
+              <h4 className="footer-title">{t("footer.titles.quickLinks")}</h4>
               <ul className="footer-list">
                 {quickLinks.map((link, i) => (
                   <li key={i}>
@@ -70,17 +72,15 @@ export default function Footer() {
                       {link.title}
                     </a>
                   </li>
-
                 ))}
               </ul>
             </div>
 
             {/* Services */}
-  <div className="col-lg-3 col-md-4 col-6 footer-col">
-              <h4 className="footer-title">الخدمات</h4>
+            <div className="col-lg-3 col-md-4 col-6 footer-col">
+              <h4 className="footer-title">{t("footer.titles.services")}</h4>
               <ul className="footer-list">
                 {services.map((service, i) => (
-
                   <li key={i}>
                     <a href={service.href} className="footer-link">
                       <i className="fa-solid fa-angles-left arrow-icon"></i>
@@ -91,9 +91,9 @@ export default function Footer() {
               </ul>
             </div>
 
-            {/* Contact Info */}
-  <div className="col-lg-3 col-md-4 col-6 footer-col">
-              <h4 className="footer-title">تواصل معنا</h4>
+            {/* Contact */}
+            <div className="col-lg-3 col-md-4 col-6 footer-col">
+              <h4 className="footer-title">{t("footer.titles.contact")}</h4>
               <ul className="footer-contact">
                 {contact.map((item, i) => (
                   <li key={i}>
@@ -105,25 +105,28 @@ export default function Footer() {
                 ))}
               </ul>
             </div>
+
           </div>
         </div>
       </div>
 
-      {/* Footer Bottom */}
+      {/* Bottom */}
       <div className="footer-bottom">
         <div className="container">
           <div className="footer-bottom-content">
-            <p>جميع الحقوق محفوظة © {currentYear} الحميري للحج والعمرة</p>
+            <p>{t("footer.rights")} © {currentYear}</p>
+
             <div className="footer-links">
-              <a href="#">سياسة الخصوصية</a>
+              <a href="#">{t("footer.bottom.privacy")}</a>
               <span className="divider">|</span>
-              <a href="#">شروط الاستخدام</a>
+              <a href="#">{t("footer.bottom.terms")}</a>
               <span className="divider">|</span>
-              <a href="#">اتصل بنا</a>
+              <a href="#">{t("footer.bottom.contact")}</a>
             </div>
           </div>
         </div>
       </div>
+
     </footer>
   );
 }

@@ -82,6 +82,55 @@
       "countries": "عملاء حول العالم"
     }
   }
+,
+  "footer": {
+    "description": "نقدم خدمات حج وعمرة متكاملة بأعلى معايير الراحة والأمان لضيوف الرحمن منذ 15 سنة.",
+    "titles": {
+      "quickLinks": "روابط سريعة",
+      "services": "الخدمات",
+      "contact": "تواصل معنا"
+    },
+    "quickLinks": {
+      "home": "الرئيسية",
+      "about": "عن الحميري",
+      "services": "الخدمات",
+      "faqs": "الأسئلة الشائعة"
+    },
+    "services": {
+      "hajj": "حج",
+      "umrah": "عمرة",
+      "consulting": "استشارات",
+      "religiousTrips": "رحلات دينية"
+    },
+    "contact": {
+      "phone": "+966 50 123 4567",
+      "email": "info@alhemery.com",
+      "address": "الرياض، المملكة العربية السعودية"
+    },
+    "social": {
+      "facebook": "فيسبوك",
+      "twitter": "تويتر",
+      "instagram": "انستقرام",
+      "whatsapp": "واتس آب"
+    },
+    "bottom": {
+      "privacy": "سياسة الخصوصية",
+      "terms": "شروط الاستخدام",
+      "contact": "اتصل بنا"
+    },
+    "rights": "جميع الحقوق محفوظة"
+  }
+,
+
+  "locations": {
+    "title": "مواقعنا",
+    "loadingBranches": "جارِ تحميل الفروع...",
+    "loadingDetails": "جارِ تحميل التفاصيل...",
+    "visitSite": "زيارة الموقع",
+    "Branch1": "الفرع الرئيسي",
+    "Branch2": "الفرع الجديد",
+    "Branch3": "فرع الغرب"
+  }
 
 
 }
