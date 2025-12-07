@@ -38,6 +38,7 @@
     "idNumber": "ID Number",
     "enterIdNumber": "Enter ID Number",
     "signIn": "Sign In",
+    "loginSuccess" :"login successfully",
     "logout_success": " logout successfully"
   },
   "profile": {
@@ -53,10 +54,29 @@
     "muzdalifahPlace": "Muzdalifah Accommodation",
     "supervisors": "Supervisors"
   },
-    "notifications":{
+  "support": {
+      "complaint": "Complaint",
+    "request": "Request",
+    "suggestion": "Suggestion",
+   "surveys":"surveys",
+    "complaintPlaceholder": "Write your complaint here",
+    "requestPlaceholder": "Write your request here",
+    "suggestionPlaceholder": "Write your suggestion here",
+    "sendComplaint": "Send Complaint",
+    "sendRequest": "Send Request",
+    "sendSuggestion": "Send Suggestion",
+    "messageRequired": "Please write a message",
+    "messageSent": "Your message has been sent successfully",
+    "fileUploading": "Please wait, file is uploading...",
+    "error": "An error occurred while sending"
+  },
+  "notifications":{
     "Title":"Notifications",
     "SubTitle":"Stay up-to-date with the latest updates and alerts."
   },
+  "gallery":{
+  "Title":" Photo gallery"
+},
  "faqs": {
     "Title": "FAQs & Guidelines",
     "SubTitle": "Everything you need to know about your journey",
@@ -118,7 +138,6 @@
     },
     "rights": "All rights reserved"
   },
-  
   "locations": {
     "title": "Our Locations",
     "loadingBranches": "Loading branches...",
@@ -127,9 +146,53 @@
     "Branch1": "Main Branch",
     "Branch2": "New Branch",
     "Branch3": "West Branch"
+  },
+  "services": {
+    "title": "Premium Hajj Package Services",
+    "subtitle": "Comfort and organization in every step",
+    "loading": "Loading services..."
+  },
+  "tasbeeh": {
+    "title": "Digital Tasbeeh",
+    "imageAlt": "Tasbeeh",
+
+    "from": "out of",
+    "hint": "Tap to count or hold for auto counting",
+
+    "buttons": {
+      "tasbeeh": "Tasbeeh",
+      "clear": "Clear"
+    },
+
+    "stats": {
+      "progress": "Today's Progress",
+      "remaining": "Remaining to goal"
+    },
+
+    "tipsTitle": "Tips",
+
+    "tips": [
+      "Use the digital tasbeeh to easily track your daily remembrance",
+      "Recite 'Subhan Allah' 33 times after each prayer for a great reward"
+    ]
+  } ,
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "We are here to answer your questions and assist you with whatever you need",
+    "formTitle": "Contact Us",
+    "fullName": "Full Name",
+    "fullNamePlaceholder": "Enter your name",
+    "email": "Email",
+    "emailPlaceholder": "example@mail.com",
+    "message": "Message",
+    "messagePlaceholder": "Write your message here...",
+    "send": "Send",
+    "sending": "Sending...",
+    "success": "Your message has been sent successfully ✅",
+    "insta": "Instagram",
+    "snap": "Snapchat",
+    "whats": "WhatsApp",
+    "tiktok": "TikTok"
   }
-
-
-
 
 }

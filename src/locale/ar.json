@@ -38,6 +38,7 @@
     "idNumber": "رقم الهوية",
     "enterIdNumber": "أدخل رقم الهوية",
     "signIn": "تسجيل دخول",
+    "loginSuccess": "تم تسجيل الدخول بنجاح",
     "logout_success": " تم تسجيل الخروج بنجاح"
   },
   "profile": {
@@ -53,11 +54,29 @@
     "muzdalifahPlace": "موقع السكن مزدلفة",
     "supervisors": "المشرفون"
   },
-  "notifications":{
-    "Title":"الإشعارات",
-    "SubTitle":"ابقَ على اطلاع بآخر التحديثات والتنبيهات"
+  "support": {
+    "complaint": " الشكاوي",
+    "request": "الطلبات",
+    "suggestion": "الاقتراحات",
+    "surveys":"الاستبيانات",
+    "complaintPlaceholder": "اكتب الشكوى هنا",
+    "requestPlaceholder": "اكتب طلبك هنا",
+    "suggestionPlaceholder": "اكتب اقتراحك هنا",
+    "sendComplaint": "إرسال الشكوى",
+    "sendRequest": "إرسال الطلب",
+    "sendSuggestion": "إرسال الاقتراح",
+    "messageRequired": "الرجاء كتابة رسالة",
+    "messageSent":"تم إرسال رسالتك بنجاح ",
+    "fileUploading": "انتظر جاري رفع الملف...",
+    "error": "حدث خطأ أثناء الإرسال"
   },
-  
+  "notifications": {
+    "Title": "الإشعارات",
+    "SubTitle": "ابقَ على اطلاع بآخر التحديثات والتنبيهات"
+  },
+"gallery":{
+  "Title":" معرض الصور"
+},
   "faqs": {
     "Title": "الأسئلة الشائعة والإرشادات",
     "SubTitle": "كل ما تحتاج معرفته عن رحلتك",
@@ -81,8 +100,7 @@
       "hajjPilgrims": "حاج ومعتمر",
       "countries": "عملاء حول العالم"
     }
-  }
-,
+  },
   "footer": {
     "description": "نقدم خدمات حج وعمرة متكاملة بأعلى معايير الراحة والأمان لضيوف الرحمن منذ 15 سنة.",
     "titles": {
@@ -119,9 +137,7 @@
       "contact": "اتصل بنا"
     },
     "rights": "جميع الحقوق محفوظة"
-  }
-,
-
+  },
   "locations": {
     "title": "مواقعنا",
     "loadingBranches": "جارِ تحميل الفروع...",
@@ -130,7 +146,58 @@
     "Branch1": "الفرع الرئيسي",
     "Branch2": "الفرع الجديد",
     "Branch3": "فرع الغرب"
+  },
+   "services": {
+    "title": " ",
+    "subtitle": "Comfort and organization in every step",
+    "loading": "Loading services..."
+  },
+  "tasbeeh": {
+    "title": "سبحة إلكترونية",
+    "imageAlt": "سبحة",
+    "from": "من",
+    "hint": "اضغط للتسبيح أو امسك للتسبيح التلقائي",
+
+    "buttons": {
+      "tasbeeh": "تسبيح",
+      "clear": "مسح"
+    },
+
+    "stats": {
+      "progress": "تقدم اليوم",
+      "remaining": "المتبقي للهدف"
+    },
+
+    "tipsTitle": "نصائح",
+
+    "tips": [
+      "استخدم السبحة الإلكترونية لمتابعة تسبيحك اليومي بسهولة",
+      "سبح الله 33 مرة بعد كل صلاة مفروضة للحصول على الأجر العظيم"
+    ]
+  },
+  "contact": {
+    "title": "تواصل معنا",
+    "subtitle": "نحن هنا للإجابة على أسئلتك ومساعدتك في كل ما تحتاجه",
+    "formTitle": "تواصل معنا",
+    "fullName": "الاسم الكامل",
+    "fullNamePlaceholder": "اكتب اسمك",
+    "email": "البريد الإلكتروني",
+    "emailPlaceholder": "example@mail.com",
+    "message": "اكتب رسالتك",
+    "messagePlaceholder": "اكتب رسالتك هنا...",
+    "send": "إرسال",
+    "sending": "جارِ الإرسال...",
+    "success": "تم إرسال رسالتك بنجاح ✅",
+    "insta": "انستجرام",
+    "snap": "سنابشات",
+    "whats": "واتس اب",
+    "tiktok": "تيك توك"
   }
+
+
+
+
+
 
 
 }

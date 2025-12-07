@@ -1,16 +1,16 @@
 import { useState, useRef, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 export default function Tasbeeh() {
+    const { t } = useTranslation();
+
     const [count, setCount] = useState(0);
     const [dailyGoal] = useState(100);
     const [pulse, setPulse] = useState(false);
     const holdRef = useRef(null);
     const wrapperRef = useRef(null);
 
-    const tips = [
-        "استخدم السبحة الإلكترونية لمتابعة تسبيحك اليومي بسهولة",
-        "سبح الله 33 مرة بعد كل صلاة مفروضة للحصول على الأجر العظيم"
-    ];
+    const tips = t("tasbeeh.tips", { returnObjects: true });
 
     const increment = (n = 1) => {
         setCount((c) => {
@@ -22,7 +22,6 @@ export default function Tasbeeh() {
         clearTimeout(holdRef.current?.pulseTimeout);
         holdRef.current.pulseTimeout = setTimeout(() => setPulse(false), 300);
     };
-
 
     const startHold = () => {
         increment();
@@ -60,7 +59,7 @@ export default function Tasbeeh() {
             <div className="container">
                 <div className="tasbeeh-wrapper">
                     <div className="tasbeeh-main">
-                        <h2>سبحة إلكترونية</h2>
+                        <h2>{t("tasbeeh.title")}</h2>
 
                         <div
                             className={`sebha-container ${pulse ? "pulse" : ""}`}
@@ -76,39 +75,47 @@ export default function Tasbeeh() {
                         >
                             <img
                                 src="/icons/Sebha.svg"
-                                alt="سبحة"
+                                alt={t("tasbeeh.imageAlt")}
                                 className="sebha-img"
                                 draggable={false}
                             />
 
                             <div className="sebha-counter">
                                 <span className={pulse ? "pop" : ""}>{count}</span>
-                                <small>من {dailyGoal}</small>
+                                <small>
+                                    {t("tasbeeh.from")} {dailyGoal}
+                                </small>
                             </div>
                         </div>
 
-                        <p className="sebha-hint">اضغط للتسبيح أو امسك للتسبيح التلقائي</p>
+                        <p className="sebha-hint">
+                            {t("tasbeeh.hint")}
+                        </p>
 
                         <div className="sebha-controls">
                             <button
                                 className="btn btn-tasbeeh"
                                 onClick={() => increment()}
                             >
-                                تسبيح
+                                {t("tasbeeh.buttons.tasbeeh")}
                             </button>
                             <button
                                 className="btn btn-clear"
                                 onClick={handleReset}
                             >
-                                مسح
+                                {t("tasbeeh.buttons.clear")}
                             </button>
                         </div>
                     </div>
 
                     <div className="tasbeeh-stats">
                         <div className="stat-card">
-                            <div className="stat-value">{progressPercent.toFixed(0)}%</div>
-                            <div className="stat-label">تقدم اليوم</div>
+                            <div className="stat-value">
+                                {progressPercent.toFixed(0)}%
+                            </div>
+                            <div className="stat-label">
+                                {t("tasbeeh.stats.progress")}
+                            </div>
                             <div className="progress-bar">
                                 <div
                                     className="progress-fill"
@@ -118,13 +125,18 @@ export default function Tasbeeh() {
                         </div>
 
                         <div className="stat-card">
-                            <div className="stat-value">{Math.max(0, dailyGoal - count)}</div>
-                            <div className="stat-label">المتبقي للهدف</div>
+                            <div className="stat-value">
+                                {Math.max(0, dailyGoal - count)}
+                            </div>
+                            <div className="stat-label">
+                                {t("tasbeeh.stats.remaining")}
+                            </div>
                         </div>
 
                         <div className="tips-card">
                             <div className="tips-header">
-                                <i className="fas fa-lightbulb"></i> نصائح
+                                <i className="fas fa-lightbulb"></i>
+                                {t("tasbeeh.tipsTitle")}
                             </div>
                             <ul className="tips-list">
                                 {tips.map((tip, i) => (
@@ -132,7 +144,6 @@ export default function Tasbeeh() {
                                 ))}
                             </ul>
                         </div>
-
                     </div>
                 </div>
             </div>

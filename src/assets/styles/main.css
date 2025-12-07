@@ -1170,7 +1170,7 @@ body .services-section .orbit-item .icon-wrap {
     height: 80px;
   }
 }
-body .services-section .orbit-item .icon-wrap .icon-wrap img {
+body .services-section .orbit-item .icon-wrap img {
   width: 40px;
   height: 40px;
   -o-object-fit: contain;
@@ -1178,7 +1178,7 @@ body .services-section .orbit-item .icon-wrap .icon-wrap img {
   margin-bottom: 6px;
 }
 @media screen and (max-width: 1200px) {
-  body .services-section .orbit-item .icon-wrap .icon-wrap img {
+  body .services-section .orbit-item .icon-wrap img {
     width: 20px;
     height: 20px;
   }
