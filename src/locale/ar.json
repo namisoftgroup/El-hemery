@@ -156,11 +156,11 @@
     "Branch2": "الفرع الجديد",
     "Branch3": "فرع الغرب"
   },
-   "services": {
-    "title": " ",
-    "subtitle": "Comfort and organization in every step",
-    "loading": "Loading services..."
-  },
+  "services": {
+  "title": "خدمات باقة الحج الفاخرة",
+  "subtitle": "الراحة والتنظيم في كل خطوة",
+  "loading": "جاري تحميل الخدمات..."
+},
   "tasbeeh": {
     "title": "سبحة إلكترونية",
     "imageAlt": "سبحة",
