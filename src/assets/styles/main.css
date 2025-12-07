@@ -2740,6 +2740,38 @@ body .duas-page .duas-list .dua-card .dua-ar {
   color: #111;
   text-align: right;
 }
+body .duas-page .duas-list.skeleton {
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+}
+body .duas-page .duas-list .skeleton-line {
+  background: linear-gradient(90deg, #eee 25%, #f5f5f5 37%, #eee 63%);
+  background-size: 400% 100%;
+  animation: shimmer 1.2s infinite;
+  border-radius: 6px;
+}
+body .duas-page .duas-list .skeleton-line.title {
+  height: 22px;
+  width: 50%;
+  margin-bottom: 12px;
+}
+body .duas-page .duas-list .skeleton-line.text {
+  height: 14px;
+  width: 100%;
+  margin-bottom: 10px;
+}
+body .duas-page .duas-list .skeleton-line.text.short {
+  width: 70%;
+}
+@keyframes shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
 body main {
   min-height: calc(100dvh - 300px);
 }

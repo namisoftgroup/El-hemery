@@ -77,6 +77,15 @@
   "gallery":{
   "Title":" Photo gallery"
 },
+ "duasPage": {
+    "title": "Hajj & Umrah Supplications",
+    "subtitle": "Authentic and brief supplications to read during rituals",
+    "enableCompass": "Enable compass on iPhone",
+    "compassAlt": "Compass",
+    "arrowAlt": "Qibla arrow",
+    "compassTitle": "Compass",
+    "compassDesc": "Qibla direction based on your location and device orientation"
+  },
  "faqs": {
     "Title": "FAQs & Guidelines",
     "SubTitle": "Everything you need to know about your journey",

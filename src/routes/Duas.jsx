@@ -1,13 +1,8 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import PageHeader from "../components/PageHeader.jsx";
-
-const DUA_LIST = [
-  { id: "ihram", title: "دعاء الإحرام", arabic: "اللَّهُمَّ إِنِّي أَحْرَمْتُ بِحَجٍ/بِعُمْرَةٍ فَتَقَبَّلْهُ مِنِّي" },
-  { id: "talbiyah", title: "التلبية", arabic: "لَبَّيْكَ اللَّهُمَّ لَبَّيْكَ، لَبَّيْكَ لَا شَرِيكَ لَكَ لَبَّيْكَ..." },
-  { id: "enter-makkah", title: "دعاء دخول مكة", arabic: "اللهم اجعلها خيرا وبارك لنا فيها" },
-  { id: "enter-haram", title: "دعاء دخول المسجد الحرام", arabic: "اللهم افتح لي أبواب رحمتك" },
-  { id: "safar", title: "دعاء السفر", arabic: "اللَّهُمَّ إِنَّا نَسْأَلُكَ فِي سَفَرِنَا هَذَا الْبِرَّ وَالتَّقْوَى..." },
-];
+import useGetSupplication from "../hooks/profile/useGetSupplication.js";
+import DuaSkeleton from "../ui/loaders/DuaSkeleton.jsx";
 
 // حساب اتجاه القبلة
 function getQiblaDirection(lat, lon) {
@@ -19,7 +14,9 @@ function getQiblaDirection(lat, lon) {
 
   const longDiff = kaabaLon - userLon;
   const y = Math.sin(longDiff);
-  const x = Math.cos(userLat) * Math.tan(kaabaLat) - Math.sin(userLat) * Math.cos(longDiff);
+  const x =
+    Math.cos(userLat) * Math.tan(kaabaLat) -
+    Math.sin(userLat) * Math.cos(longDiff);
   const bearing = (Math.atan2(y, x) * 180) / Math.PI;
   return (bearing + 360) % 360;
 }
@@ -30,12 +27,14 @@ function isMobileDevice() {
 }
 
 export default function Duas() {
-  const [qiblaDegree, setQiblaDegree] = useState(0); // اتجاه القبلة
-  const [deviceDegree, setDeviceDegree] = useState(0); // اتجاه الجهاز
+  const { t } = useTranslation();
+
+  const [qiblaDegree, setQiblaDegree] = useState(0);
+  const [deviceDegree, setDeviceDegree] = useState(0);
   const [iosNeedsPermission, setIosNeedsPermission] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const { data: Supplication, isLoading } = useGetSupplication();
 
-  // --- 1) الحصول على موقع المستخدم لحساب القبلة ---
   useEffect(() => {
     setIsMobile(isMobileDevice());
 
@@ -49,15 +48,14 @@ export default function Duas() {
     );
   }, []);
 
-  // --- 2) قراءة اتجاه الجهاز ---
   useEffect(() => {
-    if (!isMobile) return; 
+    if (!isMobile) return;
 
     if (
       typeof DeviceOrientationEvent !== "undefined" &&
       typeof DeviceOrientationEvent.requestPermission === "function"
     ) {
-      setIosNeedsPermission(true); // iOS يحتاج إذن
+      setIosNeedsPermission(true);
     } else {
       window.addEventListener("deviceorientation", handleDeviceOrientation);
     }
@@ -70,9 +68,9 @@ export default function Duas() {
   const handleDeviceOrientation = (event) => {
     let heading = null;
     if (event.webkitCompassHeading !== undefined) {
-      heading = event.webkitCompassHeading; // iOS
+      heading = event.webkitCompassHeading;
     } else if (event.alpha !== null) {
-      heading = 360 - event.alpha; // Android
+      heading = 360 - event.alpha;
     }
     if (heading !== null && !isNaN(heading)) setDeviceDegree(heading);
   };
@@ -89,14 +87,13 @@ export default function Duas() {
     }
   };
 
-  // اتجاه السهم النهائي
   const finalRotation = isMobile ? qiblaDegree - deviceDegree : qiblaDegree;
 
   return (
     <main className="duas-page">
       <PageHeader
-        title="أدعية الحج والعمرة"
-        subtitle="أدعية ثابتة ومختصرة — للقراءة أثناء المناسك"
+        title={t("duasPage.title")}
+        subtitle={t("duasPage.subtitle")}
       />
 
       <div className="container">
@@ -105,8 +102,11 @@ export default function Duas() {
           <aside className="duas-compass">
             <div className="compass-card">
               {iosNeedsPermission && (
-                <button className="btn btn-primary" onClick={requestIOSPermission}>
-                  تفعيل البوصلة في آيفون
+                <button
+                  className="btn btn-primary"
+                  onClick={requestIOSPermission}
+                >
+                  {t("duasPage.enableCompass")}
                 </button>
               )}
 
@@ -114,27 +114,43 @@ export default function Duas() {
                 className="compass-rotate"
                 style={{ transform: `rotate(${finalRotation}deg)` }}
               >
-                <img src="/icons/qiblah.svg" className="compass-base" alt="البوصلة" />
-                <img src="/icons/arr.svg" className="compass-arrow" alt="السهم" />
+                <img
+                  src="/icons/qiblah.svg"
+                  className="compass-base"
+                  alt={t("duasPage.compassAlt")}
+                />
+                <img
+                  src="/icons/arr.svg"
+                  className="compass-arrow"
+                  alt={t("duasPage.arrowAlt")}
+                />
               </div>
 
               <div className="compass-meta">
-                <h4>البوصلة</h4>
-                <small>اتجاه القبلة حسب موقعك واتجاه جهازك</small>
+                <h4>{t("duasPage.compassTitle")}</h4>
+                <small>{t("duasPage.compassDesc")}</small>
               </div>
             </div>
           </aside>
 
+          {/* الأدعية */}
           <section className="duas-list">
-            {DUA_LIST.map((d) => (
-              <article key={d.id} className="dua-card">
-                <div className="dua-head">
-                  <h3>{d.title}</h3>
-                </div>
-                <p className="dua-ar">{d.arabic}</p>
-              </article>
-            ))}
+            {isLoading ? (
+              <>
+                <DuaSkeleton />
+              </>
+            ) : (
+              Supplication?.map((supply) => (
+                <article key={supply.id} className="dua-card">
+                  <div className="dua-head">
+                    <h3>{supply.title}</h3>
+                  </div>
+                  <p className="dua-ar">{supply.description}</p>
+                </article>
+              ))
+            )}
           </section>
+
         </div>
       </div>
     </main>
