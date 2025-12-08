@@ -183,10 +183,10 @@ body header {
 }
 body header .layer {
   position: absolute;
-  top: 56.48px;
+  top: 0;
   left: 0;
   width: 100%;
-  height: calc(100vh - 56.48px);
+  height: 100vh;
   background: rgba(0, 0, 0, 0.4);
   z-index: -1;
   display: none;

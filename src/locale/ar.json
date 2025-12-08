@@ -39,7 +39,8 @@
     "enterIdNumber": "أدخل رقم الهوية",
     "signIn": "تسجيل دخول",
     "loginSuccess": "تم تسجيل الدخول بنجاح",
-    "logout_success": " تم تسجيل الخروج بنجاح"
+    "logout_success": " تم تسجيل الخروج بنجاح",
+    "loginFailed":"حدث خطأ في تسجيل الدخول" 
   },
   "profile": {
     "Title": " الملف الشخصي",

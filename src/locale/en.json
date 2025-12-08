@@ -39,7 +39,8 @@
     "enterIdNumber": "Enter ID Number",
     "signIn": "Sign In",
     "loginSuccess" :"login successfully",
-    "logout_success": " logout successfully"
+    "logout_success": " logout successfully",
+    "loginFailed":" loginFailed"
   },
   "profile": {
     "Title": "Profile",
