@@ -8,8 +8,8 @@ const axiosInstance = axios.create();
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    const lang = localStorage.getItem("i18nextLng") || "ar";
-    config.headers["lang"] = lang;
+    const lang = localStorage.getItem("lang") || "ar";
+    config.headers["Accept-Language"] = lang; 
     return config;
   },
   (error) => {
@@ -18,4 +18,3 @@ axiosInstance.interceptors.request.use(
 );
 
 export default axiosInstance;
-

@@ -19,20 +19,19 @@ export default function Header({auth}) {
 
   const [openMenu, setOpenMenu] = useState(false);
 
-  const handleLanguageChange = () => {
-    const newLang = lang === "ar" ? "en" : "ar";
+const handleLanguageChange = () => {
+  const newLang = lang === "ar" ? "en" : "ar";
 
-    dispatch(setLanguage(newLang));
-    localStorage.setItem("lang", newLang);
-    i18next.changeLanguage(newLang);
+  dispatch(setLanguage(newLang));
+  localStorage.setItem("lang", newLang);
+  i18next.changeLanguage(newLang);
 
-    queryClient.invalidateQueries();
-    const bodyElement = document.querySelector("body");
+  queryClient.invalidateQueries({ queryKey: [] });
 
-    if (bodyElement) {
-      bodyElement.classList.toggle("en", newLang === "en");
-    }
-  };
+  document.body.classList.remove("en", "ar");
+  document.body.classList.add(newLang);
+};
+
 
   useEffect(() => {
     const header = document.querySelector(".header");
