@@ -4,6 +4,7 @@ import { Toaster } from "sonner";
 import { useEffect } from "react";
 import { router } from "./providers/Router";
 import i18n from "./utils/i18n";
+import FloatingWebView from "./components/Chat";
 
 function App() {
   const { lang } = useSelector((state) => state.settings);
@@ -19,6 +20,8 @@ function App() {
     <>
       <Toaster expand={false} richColors position="bottom-right" />
       <RouterProvider router={router} />
+            <FloatingWebView />
+
     </>
   );
 }

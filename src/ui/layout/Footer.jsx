@@ -5,18 +5,12 @@ export default function Footer() {
   const { t } = useTranslation();
   const currentYear = new Date().getFullYear();
 
+  // روابط السكشنات زي الهيدر
   const quickLinks = [
-    { title: t("footer.quickLinks.home"), href: "#" },
-    { title: t("footer.quickLinks.about"), href: "#" },
-    { title: t("footer.quickLinks.services"), href: "#" },
-    { title: t("footer.quickLinks.faqs"), href: "#" },
-  ];
-
-  const services = [
-    { title: t("footer.services.hajj"), href: "#" },
-    { title: t("footer.services.umrah"), href: "#" },
-    { title: t("footer.services.consulting"), href: "#" },
-    { title: t("footer.services.religiousTrips"), href: "#" },
+    { title: t("footer.quickLinks.home"), href: "#hero" },
+    { title: t("footer.quickLinks.about"), href: "#about" },
+    { title: t("footer.quickLinks.services"), href: "#services" },
+    { title: t("footer.quickLinks.faqs"), href: "/faqs" },
   ];
 
   const contact = [
@@ -32,6 +26,15 @@ export default function Footer() {
     { icon: "fa-whatsapp", href: "#", label: t("footer.social.whatsapp") },
   ];
 
+  // Scroll سلس للسكشنات
+  const handleScroll = (href) => {
+    if (href.startsWith("#")) {
+      const id = href.replace("#", "");
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <footer className="footer">
       <div className="footer-top">
@@ -39,11 +42,10 @@ export default function Footer() {
           <div className="row footer-grid">
 
             {/* Company Info */}
-            <div className="col-lg-3 col-md-4 col-6 footer-col">
+            <div className="col-lg-4 col-md-4 col-6 footer-col">
               <div className="footer-logo">
                 <img src="/images/logo.svg" alt="الحميري" />
               </div>
-
               <p className="footer-desc">{t("footer.description")}</p>
 
               <div className="footer-socials">
@@ -63,37 +65,37 @@ export default function Footer() {
             </div>
 
             {/* Quick Links */}
-            <div className="col-lg-3 col-md-4 col-6 footer-col">
+            <div className="col-lg-4 col-md-4 col-6 footer-col">
               <h4 className="footer-title">{t("footer.titles.quickLinks")}</h4>
               <ul className="footer-list">
                 {quickLinks.map((link, i) => (
                   <li key={i}>
-                    <a href={link.href} className="footer-link">
-                      <i className="fa-solid fa-angles-left arrow-icon"></i>
-                      {link.title}
-                    </a>
+                    {link.href.startsWith("#") ? (
+                      <a
+                        href={link.href}
+                        className="footer-link"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleScroll(link.href);
+                        }}
+                      >
+                        <i className="fa-solid fa-angles-left arrow-icon"></i>
+                        {link.title}
+                      </a>
+                    ) : (
+                      <Link to={link.href} className="footer-link">
+                        <i className="fa-solid fa-angles-left arrow-icon"></i>
+                        {link.title}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>
-            </div>
 
-            {/* Services */}
-            <div className="col-lg-3 col-md-4 col-6 footer-col">
-              <h4 className="footer-title">{t("footer.titles.services")}</h4>
-              <ul className="footer-list">
-                {services.map((service, i) => (
-                  <li key={i}>
-                    <a href={service.href} className="footer-link">
-                      <i className="fa-solid fa-angles-left arrow-icon"></i>
-                      {service.title}
-                    </a>
-                  </li>
-                ))}
-              </ul>
             </div>
 
             {/* Contact */}
-            <div className="col-lg-3 col-md-4 col-6 footer-col">
+            <div className="col-lg-4 col-md-4 col-6 footer-col">
               <h4 className="footer-title">{t("footer.titles.contact")}</h4>
               <ul className="footer-contact">
                 {contact.map((item, i) => (
@@ -128,9 +130,7 @@ export default function Footer() {
             </div>
           </div>
         </div>
-
       </div>
-
     </footer>
   );
 }

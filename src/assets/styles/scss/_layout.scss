@@ -183,16 +183,23 @@ header {
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 8px;
   font-weight: 600;
   font-size: 14px;
-  // @media screen and (max-width: 991px) {
-  //   display: none;
-  // }
-  @media screen and (max-width: 450px) {
-    padding: 5px 10px;
-    font-size: 12px;
+
+  .user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
   }
+
+  .user-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
   i {
     font-size: 12px;
   }
@@ -204,7 +211,34 @@ header {
     color: $main !important;
     background: $white !important;
   }
+
+  @media screen and (max-width: 450px) {
+    padding: 5px 10px;
+    font-size: 12px;
+
+    .user-name {
+      display: none; // الاسم يختفي على الشاشات الصغيرة
+    }
+
+    i {
+      font-size: 10px;
+    }
+  }
 }
+
+.custom-dropdown-menu {
+  min-width: 180px;
+
+  .logout {
+    cursor: pointer;
+    color: #ef4444;
+
+    &:hover {
+      background: #fef2f2;
+    }
+  }
+}
+
 
 .dropdown-menu {
   padding: 12px;

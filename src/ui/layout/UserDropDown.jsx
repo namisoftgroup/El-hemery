@@ -2,15 +2,23 @@ import { Dropdown } from "react-bootstrap";
 import { Link } from "react-router";
 import { useTranslation } from "react-i18next";
 import useLogout from "../../hooks/useLogout";
+import { useSelector } from "react-redux";
 
 export default function UserDropDown() {
   const { t } = useTranslation();
   const { logout } = useLogout(t);
+  const { client } = useSelector((state) => state.auth); 
+
   return (
     <Dropdown>
-      <Dropdown.Toggle className="user_dropdown">
-        <span>{t("header.myAccount")}</span>
-        <i className="fa fa-chevron-down"></i>
+      <Dropdown.Toggle className="user_dropdown d-flex align-items-center">
+        <img
+          src={client?.avatar || "/icons/user.svg"}
+          alt={client?.first_name}
+          className="user-avatar"
+        />
+        <span className="ms-2">{client?.first_name + " " + client?.last_name}</span>
+        <i className="fa fa-chevron-down ms-2"></i>
       </Dropdown.Toggle>
 
       <Dropdown.Menu className="custom-dropdown-menu text-end">
@@ -30,7 +38,6 @@ export default function UserDropDown() {
         </Dropdown.Item>
 
         <Dropdown.Item as={"div"} className="logout" onClick={logout}>
-        {/* <Dropdown.Item as={"div"} className="logout"> */}
           <i className="fa-solid fa-arrow-right-from-bracket"></i>
           {t("header.logout")}
         </Dropdown.Item>

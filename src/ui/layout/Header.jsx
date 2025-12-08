@@ -1,36 +1,36 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
-import { Link, NavLink, useNavigate } from "react-router";
+import { Link, NavLink } from "react-router";
 import { setLanguage } from "../../redux/slices/settings";
 import { useQueryClient } from "@tanstack/react-query";
 import i18next from "i18next";
 import UserDropDown from "./UserDropDown";
 
-export default function Header({auth}) {
-// export default function Header() {
-  const navigate = useNavigate();
+export default function Header({ auth }) {
+  // export default function Header() {
+  // const navigate = useNavigate();
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
 
   const { t } = useTranslation();
-    const { isAuthed } = auth;
+  const { isAuthed } = auth;
   const { lang } = useSelector((state) => state.settings);
 
   const [openMenu, setOpenMenu] = useState(false);
 
-const handleLanguageChange = () => {
-  const newLang = lang === "ar" ? "en" : "ar";
+  const handleLanguageChange = () => {
+    const newLang = lang === "ar" ? "en" : "ar";
 
-  dispatch(setLanguage(newLang));
-  localStorage.setItem("lang", newLang);
-  i18next.changeLanguage(newLang);
+    dispatch(setLanguage(newLang));
+    localStorage.setItem("lang", newLang);
+    i18next.changeLanguage(newLang);
 
-  queryClient.invalidateQueries({ queryKey: [] });
+    queryClient.invalidateQueries({ queryKey: [] });
 
-  document.body.classList.remove("en", "ar");
-  document.body.classList.add(newLang);
-};
+    document.body.classList.remove("en", "ar");
+    document.body.classList.add(newLang);
+  };
 
 
   useEffect(() => {
@@ -74,8 +74,14 @@ const handleLanguageChange = () => {
   };
 
   const handleNavLinkClick = (e) => {
+    const targetId = e.target.getAttribute("to").replace("#", "");
+    const element = document.getElementById(targetId);
+
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+
     setOpenMenu(false);
-    navigate(e.target.getAttribute("to"));
   };
 
   return (
@@ -93,12 +99,17 @@ const handleLanguageChange = () => {
           <NavLink to="/" onClick={handleNavLinkClick}>
             {t("header.home")}
           </NavLink>
-          <NavLink to="/" onClick={handleNavLinkClick}>
+          <NavLink to="#about" onClick={handleNavLinkClick}>
             {t("header.about")}
           </NavLink>
-          <NavLink to="/" onClick={handleNavLinkClick}>
+
+          <NavLink to="#services" onClick={handleNavLinkClick}>
             {t("header.services")}
           </NavLink>
+          <NavLink to="/daus" onClick={handleNavLinkClick}>
+            {t("header.duaa")}
+          </NavLink>
+
 
           <NavLink to="/faqs" onClick={handleNavLinkClick}>
             {t("header.faqs")}
@@ -118,12 +129,10 @@ const handleLanguageChange = () => {
           {isAuthed ? (
             <UserDropDown />
           ) : (
-          // <UserDropDown />
-
-          <Link to="/signin" className="login">
-            {t("header.login")}
-          </Link>
-         )} 
+            <Link to="/signin" className="login">
+              {t("header.login")}
+            </Link>
+          )}
 
           <button className="toggle_menu" onClick={handleToggleMenu}>
             <i className="fa-regular fa-bars"></i>

@@ -38,7 +38,7 @@ export default function ServicesSection() {
   if (!services.length) return null;
 
   return (
-    <section className="services-section">
+    <section className="services-section" id="services">
       <h2 className="title">{t("services.title")}</h2>
       <p className="subtitle">{t("services.subtitle")}</p>
       <div className="service-wrapper">
