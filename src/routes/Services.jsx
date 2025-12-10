@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axiosInstance from "../utils/axiosInstance";
 import PageHeader from "../components/PageHeader.jsx";
 import { Link } from "react-router";
 import { useTranslation } from "react-i18next";
@@ -8,10 +9,11 @@ import useGetFaqs from "../hooks/services/useGetFaqs.js";
 import useGetByCar from "../hooks/services/useGetBycar.js";
 import useGetWalk from "../hooks/services/useGetWalk.js";
 import useGetSupervisors from "../hooks/services/useGetCoordinate.js";
+import useGetCommonFatwa from "../hooks/services/useGetCommonFatwa.js";
+import useGetGroups from "../hooks/services/useGetGroups.js";
 
 import AccordionList from "../components/services/AccordionList";
 import TabsNavigation from "../components/services/TabsNavigation";
-import useGetCommonFatwa from "../hooks/services/useGetCommonFatwa.js";
 
 export default function Services() {
   const [activeTab, setActiveTab] = useState(0);
@@ -23,20 +25,86 @@ export default function Services() {
   const { data: walkReturn, isLoading: loadingWalk } = useGetWalk();
   const { data: data, isLoading: loadingSupervisors } = useGetSupervisors();
   const { data: commonFatwa, isLoading: loadingCommonFatwa } = useGetCommonFatwa();
+  const { data: groups, isLoading: loadingGroups } = useGetGroups();
 
   const { t } = useTranslation();
 
+  const [activeGroupId, setActiveGroupId] = useState(null);
+  const [groupDetailsMap, setGroupDetailsMap] = useState({});
+  const [loadingGroupId, setLoadingGroupId] = useState(null);
+
+  const fetchGroupDetails = async (id) => {
+    try {
+      setLoadingGroupId(id);
+      const res = await axiosInstance.get(`/groups/${id}`);
+      setGroupDetailsMap((prev) => ({
+        ...prev,
+        [id]: res.data.data,
+      }));
+    } catch (err) {
+      console.error("Error loading group details:", err);
+    } finally {
+      setLoadingGroupId(null);
+    }
+  };
+
   const tabs = [
-    { id: 0, label: t("faqs.guides"), icon: "fa-book", content: guides?.map(g => ({ id: g.id, title: g.title, answer: g.description })) ?? [], loading: loadingGuides },
-    { id: 1, label: t("faqs.mostCommon"), icon: "fa-comments", content: Faqs?.map(f => ({ id: f.id, title: f.question, answer: f.answer })) ?? [], loading: loadingFaqs },
-    { id: 2, label: t("faqs.carTravelers"), icon: "fa-car", content: comingByCars?.map(c => ({ id: c.id, title: c.title, answer: c.description })) ?? [], loading: loadingCars },
-    { id: 3, label: t("faqs.routePlan"), icon: "fa-route", content: walkReturn?.map(w => ({ id: w.id, title: w.title, answer: w.description })) ?? [], loading: loadingWalk },
+    {
+      id: 0,
+      label: t("faqs.guides"),
+      icon: "fa-book",
+      content:
+        guides?.map((g) => ({
+          id: g.id,
+          title: g.title,
+          answer: g.description,
+        })) ?? [],
+      loading: loadingGuides,
+    },
+    {
+      id: 1,
+      label: t("faqs.mostCommon"),
+      icon: "fa-comments",
+      content:
+        Faqs?.map((f) => ({ id: f.id, title: f.question, answer: f.answer })) ??
+        [],
+      loading: loadingFaqs,
+    },
+    {
+      id: 2,
+      label: t("faqs.carTravelers"),
+      icon: "fa-car",
+      content:
+        comingByCars?.map((c) => ({
+          id: c.id,
+          title: c.title,
+          answer: c.description,
+        })) ?? [],
+      loading: loadingCars,
+    },
+    {
+      id: 3,
+      label: t("faqs.routePlan"),
+      icon: "fa-route",
+      content:
+        walkReturn?.map((w) => ({
+          id: w.id,
+          title: w.title,
+          answer: w.description,
+        })) ?? [],
+      loading: loadingWalk,
+    },
     {
       id: 4,
       label: t("faqs.commonfatwa"),
       icon: "fa-hands-praying",
-      content: commonFatwa?.map(f => ({ id: f.id, title: f.title, answer: f.description })) ?? [],
-      loading: loadingCommonFatwa
+      content:
+        commonFatwa?.map((f) => ({
+          id: f.id,
+          title: f.title,
+          answer: f.description,
+        })) ?? [],
+      loading: loadingCommonFatwa,
     },
     {
       id: 5,
@@ -44,15 +112,15 @@ export default function Services() {
       icon: "fa-users-gear",
       content: data ?? [],
       loading: loadingSupervisors,
-      type: "supervisors"
+      type: "supervisors",
     },
     {
       id: 6,
       label: t("faqs.groups"),
       icon: "fa-location-dot",
-      // content: data ?? [],  
-      // loading: loadingSupervisors,
-      // type: "supervisors"       
+      content: groups ?? [],
+      loading: loadingGroups,
+      type: "groups",
     },
   ];
 
@@ -64,7 +132,12 @@ export default function Services() {
 
       <div className="container mb-5">
         <div className="faq-wrapper">
-          <TabsNavigation tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} setActiveAccordion={setActiveAccordion} />
+          <TabsNavigation
+            tabs={tabs}
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+            setActiveAccordion={setActiveAccordion}
+          />
 
           <div className="tab-content-wrapper">
             <div className="tab-content-header">
@@ -74,44 +147,201 @@ export default function Services() {
               <h2>{currentTab.label}</h2>
             </div>
 
-            {/* Coordinates List */}
-            {currentTab.type === "supervisors" && data?.coordinates?.length > 0 && (
-              <div className="coordinates-list">
-                <ul>
-                  {data?.coordinates.map(coord => (
-                    <li key={coord.id}>{coord.title}</li>
-                  ))}
-                </ul>
-              </div>
-            )}
+            {/*  GROUPS TAB */}
+            {currentTab.type === "groups" ? (
+              <div className="accordion">
+                {groups?.map((group) => {
+                  const details = groupDetailsMap[group.id];
+                  const isOpen = activeGroupId === group.id;
+                  const isLoading = loadingGroupId === group.id;
 
-            {/* Supervisors Grid */}
-            {currentTab.type === "supervisors" ? (
-              <div className="supervisors-grid">
-                {data?.supervisors?.map((sup) => (
-                  <div key={sup.id} className="supervisor-card">
-                    <h3>{sup.name}</h3>
-                    {sup.description && <p>{sup.description}</p>}
-                    <div className="icons">
-                      {sup.phone && <a href={`tel:${sup.phone}`} className="call"><i className="fa-solid fa-phone" /></a>}
-                      {sup.whatsapp && <a href={`https://wa.me/${sup.whatsapp}`} target="_blank" rel="noreferrer" className="whatsapp"><i className="fa-brands fa-whatsapp" /></a>}
+                  return (
+                    <div
+                      key={group.id}
+                      className={`accordion-item ${isOpen ? "active" : ""}`}
+                    >
+                      {/* Header */}
+                      <button
+                        type="button"
+                        className="accordion-header"
+                        onClick={() => {
+                          if (isOpen) {
+                            setActiveGroupId(null);
+                          } else {
+                            setActiveGroupId(group.id);
+                            if (!groupDetailsMap[group.id]) {
+                              fetchGroupDetails(group.id);
+                            }
+                          }
+                        }}
+                      >
+                        <h3 className="accordion-title">{group.title}</h3>
+                        <span className="accordion-icon">
+                          <i className="fa-solid fa-chevron-down"></i>
+                        </span>
+                      </button>
+
+                      {/* Body */}
+                      <div className="accordion-body">
+                        <div className="accordion-content">
+                          {isLoading ? (
+                            <p>{t("group.loading")}</p>
+                          ) : (
+                            <>
+                              {/* ===== Group Details ===== */}
+                              <div className="group-details">
+                                <div className="details-row">
+                                  <strong>{t("group.address")}</strong>
+                                  <span>{details?.address}</span>
+                                </div>
+
+                                <div className="details-row">
+                                  <strong>{t("group.time")}</strong>
+                                  <span>{details?.time}</span>
+                                </div>
+
+                                {/* ===== Supervisors ===== */}
+                                {details?.supervisors?.length > 0 && (
+                                  <div className="group-supervisors">
+                                    <h4>{t("group.supervisors")}</h4>
+
+                                    {details.supervisors.map((sup) => (
+                                      <div
+                                        key={sup.id}
+                                        className="supervisor-card"
+                                      >
+                                        <div className="sup-info">
+                                          <p className="sup-name">{sup.name}</p>
+
+                                          {sup.description && (
+                                            <span className="sup-desc">
+                                              {sup.description}
+                                            </span>
+                                          )}
+                                        </div>
+
+                                        <div className="icons">
+                                          {sup.phone && (
+                                            <a
+                                              href={`tel:${sup.phone}`}
+                                              className="call"
+                                            >
+                                              <i className="fa-solid fa-phone" />
+                                            </a>
+                                          )}
+
+                                          {sup.whatsapp && (
+                                            <a
+                                              href={`https://wa.me/${sup.whatsapp}`}
+                                              target="_blank"
+                                              rel="noreferrer"
+                                              className="whatsapp"
+                                            >
+                                              <i className="fa-brands fa-whatsapp" />
+                                            </a>
+                                          )}
+                                        </div>
+                                      </div>
+                                    ))}
+                                  </div>
+                                )}
+
+                                {/* Location Buttons */}
+                                {details?.latitude && details?.longitude && (
+                                  <div className="location-actions">
+                                    <button
+                                      type="button"
+                                      className="btn-location outline"
+                                      onClick={() => {
+                                        const url = `https://www.google.com/maps?q=${details.latitude},${details.longitude}`;
+                                        if (navigator.share) {
+                                          navigator.share({
+                                            title: details.title,
+                                            url,
+                                          });
+                                        } else {
+                                          navigator.clipboard.writeText(url);
+                                          alert(t("group.locationCopied"));
+                                        }
+                                      }}
+                                    >
+                                      <i className="fa-solid fa-share-nodes"></i>
+                                      {t("group.shareLocation")}
+                                    </button>
+
+                                    <a
+                                      href={`https://www.google.com/maps/dir/?api=1&destination=${details.latitude},${details.longitude}`}
+                                      target="_blank"
+                                      rel="noreferrer"
+                                      className="btn-location"
+                                    >
+                                      <i className="fa-solid fa-location-arrow"></i>
+                                      {t("group.goToLocation")}
+                                    </a>
+                                  </div>
+                                )}
+                              </div>
+                            </>
+                          )}
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
+            ) : currentTab.type === "supervisors" ? (
+              <>
+                {data?.coordinates?.length > 0 && (
+                  <div className="coordinates-list">
+                    <ul>
+                      {data?.coordinates.map((coord) => (
+                        <li key={coord.id}>{coord.title}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                <div className="supervisors-grid">
+                  {data?.supervisors?.map((sup) => (
+                    <div key={sup.id} className="supervisor-card">
+                      <h3>{sup.name}</h3>
+                      {sup.description && <p>{sup.description}</p>}
+                      <div className="icons">
+                        {sup.phone && (
+                          <a href={`tel:${sup.phone}`} className="call">
+                            <i className="fa-solid fa-phone" />
+                          </a>
+                        )}
+                        {sup.whatsapp && (
+                          <a
+                            href={`https://wa.me/${sup.whatsapp}`}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="whatsapp"
+                          >
+                            <i className="fa-brands fa-whatsapp" />
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </>
             ) : (
               <div className="accordion">
                 <AccordionList
                   items={currentTab.content}
                   activeAccordion={activeAccordion}
-                  toggleAccordion={id => setActiveAccordion(activeAccordion === id ? null : id)}
+                  toggleAccordion={(id) =>
+                    setActiveAccordion(activeAccordion === id ? null : id)
+                  }
                   loading={currentTab.loading}
                 />
               </div>
             )}
           </div>
 
-
+          {/* CTA */}
           <div className="faq-cta">
             <div className="cta-content">
               <h3>{t("faqs.ctaTitle")}</h3>
@@ -121,7 +351,8 @@ export default function Services() {
                   <i className="fa-solid fa-phone"></i> {t("faqs.callUs")}
                 </Link>
                 <Link to="/contact" className="btn btn-secondary">
-                  <i className="fa-solid fa-envelope"></i> {t("faqs.sendMessage")}
+                  <i className="fa-solid fa-envelope"></i>{" "}
+                  {t("faqs.sendMessage")}
                 </Link>
               </div>
             </div>

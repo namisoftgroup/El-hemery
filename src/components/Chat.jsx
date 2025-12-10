@@ -13,12 +13,18 @@ export default function FloatingChat() {
     startNewChat,
     getMessages,
     sendMessage,
+    activeThreadId,
   } = useChat();
 
   const handleSend = () => {
     if (!message.trim()) return;
     sendMessage(message);
     setMessage("");
+  };
+
+  const handleOldChatClick = (threadId) => {
+    setShowOldChats(false);
+    getMessages(threadId); 
   };
 
   return (
@@ -29,7 +35,6 @@ export default function FloatingChat() {
 
       {open && (
         <div className="chat-widget">
-          {/* Header */}
           <div className="chat-header">
             <div className="chat-title">مساعد ذكي</div>
             <button className="close-chat" onClick={() => setOpen(false)}>
@@ -37,7 +42,7 @@ export default function FloatingChat() {
             </button>
           </div>
 
-          {/* Buttons */}
+          {/* أزرار التحكم */}
           <div className="chat-buttons">
             <button
               className="old-chat"
@@ -50,42 +55,38 @@ export default function FloatingChat() {
             </button>
           </div>
 
-          {/* Old Chats Sidebar */}
+          {/* قائمة الشات القديم */}
           {showOldChats && (
             <div
               className="old-chats-overlay"
-              onClick={() => setShowOldChats(false)} // اختفاء لما تدوسي برا
+              onClick={() => setShowOldChats(false)}
             >
               <div
                 className="old-chats-list"
-                onClick={(e) => e.stopPropagation()} // منع الإغلاق عند الضغط جوه
+                onClick={(e) => e.stopPropagation()}
               >
-                {threads.filter(t => t.messages.length > 0).length === 0 && (
+                {threads.filter((t) => t.messages.length > 0).length === 0 && (
                   <p className="no-old-chats">لا توجد دردشات سابقة</p>
                 )}
 
                 {threads
-                  .filter(t => t.messages.length > 0)
-                  .map((thread) => {
-                    const firstMsg = thread.messages[0].text;
-                    return (
-                      <div
-                        key={thread.id}
-                        className="old-chat-item"
-                        onClick={() => {
-                          getMessages(thread.id); // تحميل الرسائل للشات
-                          setShowOldChats(false); // إخفاء الـ sidebar
-                        }}
-                      >
-                        🗨️ {firstMsg}
-                      </div>
-                    );
-                  })}
+                  .filter((t) => t.messages.length > 0)
+                  .map((thread) => (
+                    <div
+                      key={thread.id}
+                      className={`old-chat-item ${
+                        thread.id === activeThreadId ? "active" : ""
+                      }`}
+                      onClick={() => handleOldChatClick(thread.id)}
+                    >
+                      🗨️ {thread.messages[0].text}
+                    </div>
+                  ))}
               </div>
             </div>
           )}
 
-          {/* Chat Body */}
+          {/* جسم الشات */}
           <div className="chat-body">
             {messages.length === 0 && !loading && !showOldChats && (
               <div className="chat-center">
@@ -107,10 +108,9 @@ export default function FloatingChat() {
                 {msg.text}
               </div>
             ))}
-
           </div>
 
-          {/* Input */}
+          {/* إدخال الرسائل */}
           <div className="chat-input">
             <input
               type="text"
@@ -118,9 +118,8 @@ export default function FloatingChat() {
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleSend()}
-              disabled={showOldChats}
             />
-            <button onClick={handleSend} disabled={showOldChats}>
+            <button onClick={handleSend}>
               <i className="fa-solid fa-paper-plane"></i>
             </button>
           </div>

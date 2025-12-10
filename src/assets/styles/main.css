@@ -1695,6 +1695,7 @@ body .tasbeeh-section .tasbeeh-wrapper .tasbeeh-stats .tips-card .tips-list li {
   color: rgba(0, 0, 0, 0.6);
   font-size: 13px;
   line-height: 1.6;
+  text-align: start;
 }
 body .tasbeeh-section .tasbeeh-wrapper .tasbeeh-stats .tips-card .tips-list li:last-child {
   border-bottom: none;
@@ -2243,6 +2244,8 @@ body .auth_section button {
 body .faq-page {
   background: linear-gradient(135deg, rgba(24, 142, 110, 0.03) 0%, rgba(142, 24, 56, 0.03) 100%);
   padding: 20px;
+  /* ===== Location Buttons ===== */
+  /* ===== Supervisors ===== */
 }
 body .faq-page .faq-wrapper {
   margin-top: 60px;
@@ -2251,20 +2254,20 @@ body .faq-page .tabs-navigation {
   margin-bottom: 50px;
 }
 body .faq-page .tabs-navigation .tabs-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 12px;
 }
-@media (max-width: 768px) {
-  body .faq-page .tabs-navigation .tabs-list {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-  }
+body .faq-page .tabs-navigation .tabs-list > * {
+  flex: 1 1 calc(25% - 12px);
+  box-sizing: border-box;
 }
 @media (max-width: 480px) {
   body .faq-page .tabs-navigation .tabs-list {
-    grid-template-columns: 1fr;
     gap: 8px;
+  }
+  body .faq-page .tabs-navigation .tabs-list > * {
+    flex: 1 1 calc(50% - 8px);
   }
 }
 body .faq-page .tabs-navigation .tabs-list .tab-btn {
@@ -2509,18 +2512,6 @@ body .faq-page .coordinates-list ul li {
   margin-bottom: 8px;
   color: #333;
 }
-body .faq-page .coordinates-list {
-  margin-bottom: 24px;
-}
-body .faq-page .coordinates-list ul {
-  list-style: none;
-  padding-left: 20px;
-}
-body .faq-page .coordinates-list ul li {
-  font-size: 18px;
-  margin-bottom: 8px;
-  color: #777;
-}
 body .faq-page .supervisors-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -2563,6 +2554,202 @@ body .faq-page .supervisors-grid .supervisor-card .icons a.call {
 }
 body .faq-page .supervisors-grid .supervisor-card .icons a.whatsapp {
   background: #25d366;
+}
+body .faq-page .accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+body .faq-page .accordion .accordion-item {
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+}
+body .faq-page .accordion .accordion-item:hover {
+  border-color: rgba(24, 142, 110, 0.2);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+body .faq-page .accordion .accordion-item.active {
+  border-color: rgba(24, 142, 110, 0.3);
+  background: linear-gradient(135deg, rgba(24, 142, 110, 0.02), rgba(142, 24, 56, 0.02));
+  box-shadow: 0 8px 24px rgba(24, 142, 110, 0.12);
+}
+body .faq-page .accordion .accordion-item.active .accordion-icon {
+  color: #188e6e;
+  transform: rotate(180deg);
+  background: rgba(24, 142, 110, 0.15);
+}
+body .faq-page .accordion .accordion-item .accordion-header {
+  width: 100%;
+  padding: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+body .faq-page .accordion .accordion-item .accordion-header .accordion-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #8e1838;
+  margin: 0;
+  text-align: right;
+}
+body .faq-page .accordion .accordion-item .accordion-header .accordion-icon {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(24, 142, 110, 0.08);
+  border-radius: 8px;
+  color: rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease-in-out;
+  font-size: 14px;
+}
+body .faq-page .accordion .accordion-item .accordion-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 400ms ease;
+  padding: 0;
+}
+body .faq-page .accordion .accordion-item .accordion-body .accordion-content {
+  padding: 0 20px 20px;
+}
+body .faq-page .accordion .accordion-item .accordion-body .accordion-content p {
+  font-size: 15px;
+  color: rgba(0, 0, 0, 0.65);
+  line-height: 1.8;
+}
+body .faq-page .accordion .accordion-item.active .accordion-body {
+  max-height: 1000px;
+}
+body .faq-page .group-details {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+body .faq-page .group-details .details-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(24, 142, 110, 0.04);
+  padding: 12px 16px;
+  border-radius: 10px;
+}
+body .faq-page .group-details .details-row strong {
+  font-size: 14px;
+  color: #8e1838;
+}
+body .faq-page .group-details .details-row span {
+  font-size: 14px;
+  color: #777;
+  font-weight: 500;
+}
+body .faq-page .location-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 4px;
+}
+body .faq-page .location-actions .btn-location {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #8e1838;
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+body .faq-page .location-actions .btn-location i {
+  font-size: 14px;
+}
+body .faq-page .location-actions .btn-location:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+body .faq-page .location-actions .btn-location.outline {
+  background: transparent;
+  color: #8e1838;
+  border: 2px solid rgba(142, 24, 56, 0.3);
+}
+body .faq-page .location-actions .btn-location.outline:hover {
+  background: rgba(142, 24, 56, 0.05);
+}
+body .faq-page .group-supervisors {
+  margin-top: 24px;
+}
+body .faq-page .group-supervisors h4 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 14px;
+  color: #8e1838;
+}
+body .faq-page .group-supervisors .supervisor-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+  transition: all 0.3s ease-in-out;
+}
+body .faq-page .group-supervisors .supervisor-card:hover {
+  border-color: rgba(24, 142, 110, 0.2);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+}
+body .faq-page .group-supervisors .supervisor-card .sup-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-width: 75%;
+}
+body .faq-page .group-supervisors .supervisor-card .sup-info .sup-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: #8e1838;
+  margin: 0;
+}
+body .faq-page .group-supervisors .supervisor-card .sup-info .sup-desc {
+  font-size: 13px;
+  color: #777;
+  line-height: 1.5;
+}
+body .faq-page .group-supervisors .supervisor-card .icons {
+  display: flex;
+  gap: 8px;
+}
+body .faq-page .group-supervisors .supervisor-card .icons a {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 14px;
+  transition: all 0.3s ease-in-out;
+}
+body .faq-page .group-supervisors .supervisor-card .icons a.call {
+  background: #8e1838;
+}
+body .faq-page .group-supervisors .supervisor-card .icons a.whatsapp {
+  background: #25d366;
+}
+body .faq-page .group-supervisors .supervisor-card .icons a:hover {
+  transform: scale(1.05);
 }
 body .faq-page .faq-cta {
   background: linear-gradient(135deg, #8e1838 0%, rgb(107.0987951807, 18.1012048193, 42.2361445783) 100%);
@@ -2761,7 +2948,6 @@ body .profile-page .cards-row {
   gap: 20px;
   align-items: start;
   margin-top: 8px;
-  /* Card منفصل للمرتبطين */
 }
 @media (max-width: 900px) {
   body .profile-page .cards-row {

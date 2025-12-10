@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import useGetTips from "../../hooks/home/useGetTips"; 
 
 export default function Tasbeeh() {
     const { t } = useTranslation();
@@ -10,7 +11,9 @@ export default function Tasbeeh() {
     const holdRef = useRef(null);
     const wrapperRef = useRef(null);
 
-    const tips = t("tasbeeh.tips", { returnObjects: true });
+    const { data: tipsData, isLoading } = useGetTips();
+
+    const tips = tipsData?.map(item => item.title) || []; 
 
     const increment = (n = 1) => {
         setCount((c) => {
@@ -138,11 +141,16 @@ export default function Tasbeeh() {
                                 <i className="fas fa-lightbulb"></i>
                                 {t("tasbeeh.tipsTitle")}
                             </div>
-                            <ul className="tips-list">
-                                {tips.map((tip, i) => (
-                                    <li key={i}>{tip}</li>
-                                ))}
-                            </ul>
+
+                            {isLoading ? (
+                                <p>Loading tips...</p>
+                            ) : (
+                                <ul className="tips-list">
+                                    {tips.map((tip, i) => (
+                                        <li key={i}>{tip}</li>
+                                    ))}
+                                </ul>
+                            )}
                         </div>
                     </div>
                 </div>

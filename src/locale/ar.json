@@ -225,8 +225,15 @@
     "supervisorsTitle": "للمساعدة في التسجيل ومنسقي خدمات الحجاج",
     "noteTitle": "ملحوظة",
     "mediaTitle": "صور وفيديو لطريقة التسجيل في المسار الإلكتروني"
+  },
+  "group": {
+    "loading": "جاري التحميل...",
+    "address": "العنوان",
+    "time": "الوقت",
+    "supervisors": "المشرفين",
+    "shareLocation": "مشاركة الموقع",
+    "goToLocation": "الذهاب إلى الموقع",
+    "locationCopied": "تم نسخ رابط الموقع"
   }
-
-
 
 }

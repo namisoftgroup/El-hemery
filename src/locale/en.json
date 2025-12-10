@@ -226,8 +226,15 @@
     "supervisorsTitle": "For registration help and Hajj service coordinators",
     "noteTitle": "Note",
     "mediaTitle": "Images and videos showing the registration process"
+  },
+  "group": {
+    "loading": "Loading...",
+    "address": "Address",
+    "time": "Time",
+    "supervisors": "Supervisors",
+    "shareLocation": "Share Location",
+    "goToLocation": "Go to Location",
+    "locationCopied": "Location link copied"
   }
-
-
 
 }

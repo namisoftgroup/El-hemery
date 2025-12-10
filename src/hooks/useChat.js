@@ -2,22 +2,33 @@ import { useState, useEffect } from "react";
 import chatAxios from "../utils/chatAxios";
 
 export default function useChat() {
-  const [threads, setThreads] = useState([]); // كل thread = { id, messages: [] }
+  const [threads, setThreads] = useState([]);
   const [activeThreadId, setActiveThreadId] = useState(null);
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  // جلب كل الشاتات
   const getThreads = async () => {
     try {
       setLoading(true);
       const res = await chatAxios.get("/threads");
-      const threadsData = res.data.data.threads || [];
+      const threadsData = res?.data?.data?.threads || [];
 
-      // كل thread هيحتفظ برسائله
       setThreads(
-        threadsData.map((t) => ({ id: t.id, messages: t.messages || [] }))
+        threadsData.map((t) => ({
+          id: t.id,
+          messages: t.messages || [],
+        }))
       );
-      setActiveThreadId(res.data.data.active_thread_id || null);
+
+      const activeId = res?.data?.data?.active_thread_id || null;
+      setActiveThreadId(activeId);
+
+      if (activeId) {
+        const active = threadsData.find((t) => t.id === activeId);
+        const msgs = formatMessages(active?.messages || []);
+        setMessages(msgs);
+      }
     } catch (err) {
       console.error("Get threads error", err);
     } finally {
@@ -25,35 +36,39 @@ export default function useChat() {
     }
   };
 
-const startNewChat = async () => {
-  try {
-    const res = await chatAxios.post("/new");
-    const newId = res.data.data.new_thread_id;
+  // تنسيق الرسائل لتكون متوافقة مع { type, text }
+  const formatMessages = (msgs) =>
+    msgs.map((m) => ({
+      type: m.type || "bot",
+      text: m.text || m.message || "",
+    }));
 
-    // اضيف thread جديد فارغ
-    setThreads((prev) => [...prev, { id: newId, messages: [] }]);
+  // إنشاء شات جديد
+  const startNewChat = async () => {
+    try {
+      const res = await chatAxios.post("/new");
+      const newId = res?.data?.data?.new_thread_id;
+      if (!newId) return;
 
-    // نحدد الشات الجديد كـ active
-    setActiveThreadId(newId);
+      setThreads((prev) => [...prev, { id: newId, messages: [] }]);
+      setActiveThreadId(newId);
+      setMessages([]);
+    } catch (err) {
+      console.error("New chat error", err);
+    }
+  };
 
-    // نفرغ الرسائل عشان الشات يبقى جديد
-    setMessages([]);
-  } catch (err) {
-    console.error("New chat error", err);
-  }
-};
-
-
+  // جلب رسائل شات محدد
   const getMessages = async (threadId) => {
     if (!threadId) return;
     try {
       setLoading(true);
       const res = await chatAxios.get(`/messages/${threadId}`);
-      const msgs = res.data.data.messages || [];
-      setMessages(msgs);
-      setActiveThreadId(threadId);
+      const msgs = formatMessages(res?.data?.messages || []);
 
-      // حدث الرسائل في الـ threads
+      setActiveThreadId(threadId);
+      setMessages(msgs);
+
       setThreads((prev) =>
         prev.map((t) => (t.id === threadId ? { ...t, messages: msgs } : t))
       );
@@ -64,26 +79,25 @@ const startNewChat = async () => {
     }
   };
 
+  // إرسال رسالة
   const sendMessage = async (text) => {
     if (!text.trim() || !activeThreadId) return;
-
     try {
-      setMessages((prev) => [...prev, { type: "user", text }]);
+      const userMsg = { type: "user", text };
+      setMessages((prev) => [...prev, userMsg]);
 
       const res = await chatAxios.post("/send", {
         message: text,
         thread_id: activeThreadId,
       });
 
-      const botReply = res.data.reply;
+      const botReply = { type: "bot", text: res?.data?.reply || "" };
+      setMessages((prev) => [...prev, botReply]);
 
-      setMessages((prev) => [...prev, { type: "bot", text: botReply }]);
-
-      // حدث الرسائل في الـ threads
       setThreads((prev) =>
         prev.map((t) =>
           t.id === activeThreadId
-            ? { ...t, messages: [...t.messages, { type: "user", text }, { type: "bot", text: botReply }] }
+            ? { ...t, messages: [...(t.messages || []), userMsg, botReply] }
             : t
         )
       );
