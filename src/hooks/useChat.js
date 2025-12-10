@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import chatAxios from "../utils/chatAxios";
 
 export default function useChat() {
-  const [threads, setThreads] = useState([]);
+  const [threads, setThreads] = useState([]); // كل thread = { id, messages: [] }
   const [activeThreadId, setActiveThreadId] = useState(null);
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -11,8 +11,13 @@ export default function useChat() {
     try {
       setLoading(true);
       const res = await chatAxios.get("/threads");
-      setThreads(res.data.data.threads || []);
-      setActiveThreadId(res.data.data.active_thread_id);
+      const threadsData = res.data.data.threads || [];
+
+      // كل thread هيحتفظ برسائله
+      setThreads(
+        threadsData.map((t) => ({ id: t.id, messages: t.messages || [] }))
+      );
+      setActiveThreadId(res.data.data.active_thread_id || null);
     } catch (err) {
       console.error("Get threads error", err);
     } finally {
@@ -20,23 +25,38 @@ export default function useChat() {
     }
   };
 
-  const startNewChat = async () => {
-    try {
-      const res = await chatAxios.post("/new");
-      const newId = res.data.data.new_thread_id;
-      setActiveThreadId(newId);
-      setMessages([]);
-    } catch (err) {
-      console.error("New chat error", err);
-    }
-  };
+const startNewChat = async () => {
+  try {
+    const res = await chatAxios.post("/new");
+    const newId = res.data.data.new_thread_id;
+
+    // اضيف thread جديد فارغ
+    setThreads((prev) => [...prev, { id: newId, messages: [] }]);
+
+    // نحدد الشات الجديد كـ active
+    setActiveThreadId(newId);
+
+    // نفرغ الرسائل عشان الشات يبقى جديد
+    setMessages([]);
+  } catch (err) {
+    console.error("New chat error", err);
+  }
+};
+
 
   const getMessages = async (threadId) => {
     if (!threadId) return;
     try {
       setLoading(true);
       const res = await chatAxios.get(`/messages/${threadId}`);
-      setMessages(res.data.data.messages || []);
+      const msgs = res.data.data.messages || [];
+      setMessages(msgs);
+      setActiveThreadId(threadId);
+
+      // حدث الرسائل في الـ threads
+      setThreads((prev) =>
+        prev.map((t) => (t.id === threadId ? { ...t, messages: msgs } : t))
+      );
     } catch (err) {
       console.error("Get messages error", err);
     } finally {
@@ -55,10 +75,18 @@ export default function useChat() {
         thread_id: activeThreadId,
       });
 
-      setMessages((prev) => [
-        ...prev,
-        { type: "bot", text: res.data.reply },
-      ]);
+      const botReply = res.data.reply;
+
+      setMessages((prev) => [...prev, { type: "bot", text: botReply }]);
+
+      // حدث الرسائل في الـ threads
+      setThreads((prev) =>
+        prev.map((t) =>
+          t.id === activeThreadId
+            ? { ...t, messages: [...t.messages, { type: "user", text }, { type: "bot", text: botReply }] }
+            : t
+        )
+      );
     } catch (err) {
       console.error("Send message error", err);
     }
@@ -68,18 +96,11 @@ export default function useChat() {
     getThreads();
   }, []);
 
-  useEffect(() => {
-    if (activeThreadId) {
-      getMessages(activeThreadId);
-    }
-  }, [activeThreadId]);
-
   return {
     threads,
     activeThreadId,
     messages,
     loading,
-    getThreads,
     startNewChat,
     getMessages,
     sendMessage,

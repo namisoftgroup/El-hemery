@@ -427,9 +427,10 @@
         overflow: hidden;
 
         img {
-          width: 100%;
-          height: 100%;
+          // width: 100%;
+          height: 60px;
           object-fit: cover;
+          filter: brightness(0) invert(1);
         }
       }
     }
@@ -546,7 +547,7 @@
         li {
           display: flex;
           justify-content: space-between;
-          padding: 6px 0;
+          padding: 12px 0;
           border-bottom: 1px solid rgba($second, 0.08);
 
           .label {
@@ -561,76 +562,83 @@
         }
       }
     }
+.right-card {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 
-    .right-card {
+  .supervisors-card {
+    .section-title {
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    .supervisors-list.compact {
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 10px;
 
-      .supervisors-card,
-      .companions-card {
-        .section-title {
-          font-size: 16px;
-          margin-bottom: 10px;
-        }
-      }
-
-      .supervisors-list.compact {
+      .supervisor-row {
         display: flex;
-        flex-direction: column;
-        gap: 10px;
+        gap: 12px;
+        align-items: center;
+        padding: 8px;
+        background: rgba($second, 0.02);
+        border-radius: 8px;
 
-        .supervisor-row {
+        .call-icon {
+          width: 40px;
+          height: 40px;
+          background: $second;
+          color: $white;
+          border-radius: 8px;
           display: flex;
-          gap: 12px;
           align-items: center;
-          padding: 8px;
-          background: rgba($second, 0.02);
-          border-radius: 8px;
-
-          .call-icon {
-            width: 40px;
-            height: 40px;
-            background: $second;
-            color: $white;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-          }
-
-          .supervisor-info {
-            display: flex;
-            flex-direction: column;
-
-            .supervisor-name {
-              color: $main;
-              font-weight: 800;
-            }
-
-            .supervisor-position {
-              color: rgba(0, 0, 0, 0.45);
-              font-size: 12px;
-            }
-          }
+          justify-content: center;
+          text-decoration: none;
         }
-      }
 
-      .companions-list.compact {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
+        .supervisor-info {
+          display: flex;
+          flex-direction: column;
 
-        .companion-item {
-          padding: 10px;
-          background: rgba($second, 0.03);
-          border-radius: 8px;
-          font-weight: 700;
-          color: $black;
+          .supervisor-name {
+            color: $main;
+            font-weight: 800;
+          }
+
+          .supervisor-position {
+            color: rgba(0, 0, 0, 0.45);
+            font-size: 12px;
+          }
         }
       }
     }
+  }
+}
+
+/* Card منفصل للمرتبطين */
+.companions-card {
+  .section-title {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  .companions-list.compact {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    .companion-item {
+      padding: 10px;
+      background: rgba($second, 0.03);
+      border-radius: 8px;
+      font-weight: 700;
+      color: $black;
+    }
+  }
+}
+
   }
   .tabs-section {
     margin-top: 40px;

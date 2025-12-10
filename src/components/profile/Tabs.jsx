@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import InputField from "../../ui/forms/InputField";
 import SubmitButton from "../../ui/forms/SubmitButton";
 import SurveysAccordion from "./SurveysAccordion";
-import useSupportForm from "../../hooks/useSupport";
+import useSupportForm from "../../hooks/profile/useSupport";
 
 export default function Tabs() {
   const { t } = useTranslation();

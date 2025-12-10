@@ -5,6 +5,7 @@ export default function Cards({ user }) {
 
   return (
     <div className="cards-row">
+      {/* Personal Info */}
       <div className="personal-card">
         <h2 className="section-title">{t("profile.basicInfo")}</h2>
         <ul className="personal-list">
@@ -27,6 +28,7 @@ export default function Cards({ user }) {
         </ul>
       </div>
 
+      {/* Supervisors */}
       <div className="right-card">
         <div className="supervisors-card">
           <h2 className="section-title">{t("profile.supervisors")}</h2>
@@ -44,15 +46,21 @@ export default function Cards({ user }) {
             ))}
           </div>
         </div>
+      </div>
 
-        <div className="companions-list compact">
-          {user.companions?.map((companion, index) => (
-            <div className="companion-item" key={index}>
-              {companion.name}
-            </div>
-          ))}
+      <div className="right-card">
+        <div className="companions-card">
+          <h2 className="section-title">{t("profile.companions")}</h2>
+          <div className="companions-list compact">
+            {user.companions?.map((companion, index) => (
+              <div className="companion-item" key={index}>
+                {companion.name}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
+
     </div>
   );
 }

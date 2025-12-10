@@ -7,21 +7,12 @@ import { useSelector } from "react-redux";
 export default function UserDropDown() {
   const { t } = useTranslation();
   const { logout } = useLogout(t);
-  const { client } = useSelector((state) => state.auth); 
+  const client = useSelector((state) => state.clientData.client);
 
   return (
     <Dropdown>
-      {/* <Dropdown.Toggle className="user_dropdown d-flex align-items-center">
-        <img
-          src={client?.avatar || "/icons/user.svg"}
-          alt={client?.first_name}
-          className="user-avatar"
-        />
-        <span className="ms-2">{client?.first_name + " " + client?.last_name}</span>
-        <i className="fa fa-chevron-down ms-2"></i>
-      </Dropdown.Toggle> */}
    <Dropdown.Toggle className="user_dropdown">
-        <span>{t("header.myAccount")}</span>
+        <span className="ms-2">{client?.name || t("header.myAccount")}</span>
         <i className="fa fa-chevron-down"></i>
       </Dropdown.Toggle>
 

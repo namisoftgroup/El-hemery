@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
-import axiosInstance from "../utils/axiosInstance";
+import axiosInstance from "../../utils/axiosInstance";
 import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
 
@@ -23,7 +23,7 @@ export default function useSupportForm(type) {
       return res.data;
     },
     onSuccess: () => {
-      toast.success( t("support.sending"));
+      toast.success( t("support.messageSent"));
       setMessage(""); 
     },
     onError: (err) => {

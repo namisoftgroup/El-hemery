@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @import url("https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap");
 @keyframes pulse {
@@ -298,6 +299,46 @@ button {
   border-radius: 12px;
   cursor: pointer;
   font-size: 16px;
+}
+
+/* overlay صغير داخل chat-widget يظهر من الجنب */
+.old-chats-overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%; /* يغطي ارتفاع chat-widget */
+  width: 250px;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: -4px 0 12px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.old-chats-list {
+  width: 100%;
+  max-height: 100%;
+  overflow-y: auto;
+}
+
+.old-chat-item {
+  padding: 8px 12px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  background-color: #fff;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.old-chat-item:hover {
+  background-color: #e0e0e0;
+}
+
+.no-old-chats {
+  text-align: center;
+  color: #888;
+  font-size: 14px;
 }
 
 body {
@@ -1173,6 +1214,29 @@ body .hero-section .hero-stats .stat-box p {
 body .about-section {
   width: 100%;
   padding: 80px 20px;
+  position: relative;
+}
+body .about-section::before {
+  content: "";
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 250px;
+  height: 250px;
+  background: url("/icons/patt.svg") no-repeat center/contain;
+  pointer-events: none;
+  opacity: 0.7;
+}
+body .about-section::after {
+  content: "";
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 250px;
+  height: 250px;
+  background: url("/icons/patt.svg") no-repeat center/contain;
+  pointer-events: none;
+  opacity: 0.7;
 }
 body .about-section .hero-cards {
   display: flex;
@@ -1224,6 +1288,23 @@ body .about-section .hero-cards .card .card-desc {
   font-size: 14px;
   line-height: 1.5;
   color: #555;
+}
+body .about-section .about-company {
+  max-width: 900px;
+  margin: 0 auto 60px;
+  text-align: center;
+  line-height: 1.9;
+}
+body .about-section .about-company .about-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #8e1838;
+  margin-bottom: 20px;
+}
+body .about-section .about-company p {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 15px;
 }
 body .services-section {
   padding-top: 110px;
@@ -2438,10 +2519,10 @@ body .profile-page .top-info-card .logo-section .logo-box {
   overflow: hidden;
 }
 body .profile-page .top-info-card .logo-section .logo-box img {
-  width: 100%;
-  height: 100%;
+  height: 60px;
   -o-object-fit: cover;
      object-fit: cover;
+  filter: brightness(0) invert(1);
 }
 body .profile-page .top-info-card .info-grid {
   flex: 1;
@@ -2483,6 +2564,7 @@ body .profile-page .cards-row {
   gap: 20px;
   align-items: start;
   margin-top: 8px;
+  /* Card منفصل للمرتبطين */
 }
 @media (max-width: 900px) {
   body .profile-page .cards-row {
@@ -2541,7 +2623,7 @@ body .profile-page .cards-row .personal-card .personal-list {
 body .profile-page .cards-row .personal-card .personal-list li {
   display: flex;
   justify-content: space-between;
-  padding: 6px 0;
+  padding: 12px 0;
   border-bottom: 1px solid rgba(24, 142, 110, 0.08);
 }
 body .profile-page .cards-row .personal-card .personal-list li .label {
@@ -2557,17 +2639,16 @@ body .profile-page .cards-row .right-card {
   flex-direction: column;
   gap: 20px;
 }
-body .profile-page .cards-row .right-card .supervisors-card .section-title,
-body .profile-page .cards-row .right-card .companions-card .section-title {
+body .profile-page .cards-row .right-card .supervisors-card .section-title {
   font-size: 16px;
   margin-bottom: 10px;
 }
-body .profile-page .cards-row .right-card .supervisors-list.compact {
+body .profile-page .cards-row .right-card .supervisors-card .supervisors-list.compact {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
-body .profile-page .cards-row .right-card .supervisors-list.compact .supervisor-row {
+body .profile-page .cards-row .right-card .supervisors-card .supervisors-list.compact .supervisor-row {
   display: flex;
   gap: 12px;
   align-items: center;
@@ -2575,7 +2656,7 @@ body .profile-page .cards-row .right-card .supervisors-list.compact .supervisor-
   background: rgba(24, 142, 110, 0.02);
   border-radius: 8px;
 }
-body .profile-page .cards-row .right-card .supervisors-list.compact .supervisor-row .call-icon {
+body .profile-page .cards-row .right-card .supervisors-card .supervisors-list.compact .supervisor-row .call-icon {
   width: 40px;
   height: 40px;
   background: #188e6e;
@@ -2586,24 +2667,28 @@ body .profile-page .cards-row .right-card .supervisors-list.compact .supervisor-
   justify-content: center;
   text-decoration: none;
 }
-body .profile-page .cards-row .right-card .supervisors-list.compact .supervisor-row .supervisor-info {
+body .profile-page .cards-row .right-card .supervisors-card .supervisors-list.compact .supervisor-row .supervisor-info {
   display: flex;
   flex-direction: column;
 }
-body .profile-page .cards-row .right-card .supervisors-list.compact .supervisor-row .supervisor-info .supervisor-name {
+body .profile-page .cards-row .right-card .supervisors-card .supervisors-list.compact .supervisor-row .supervisor-info .supervisor-name {
   color: #8e1838;
   font-weight: 800;
 }
-body .profile-page .cards-row .right-card .supervisors-list.compact .supervisor-row .supervisor-info .supervisor-position {
+body .profile-page .cards-row .right-card .supervisors-card .supervisors-list.compact .supervisor-row .supervisor-info .supervisor-position {
   color: rgba(0, 0, 0, 0.45);
   font-size: 12px;
 }
-body .profile-page .cards-row .right-card .companions-list.compact {
+body .profile-page .cards-row .companions-card .section-title {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+body .profile-page .cards-row .companions-card .companions-list.compact {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
-body .profile-page .cards-row .right-card .companions-list.compact .companion-item {
+body .profile-page .cards-row .companions-card .companions-list.compact .companion-item {
   padding: 10px;
   background: rgba(24, 142, 110, 0.03);
   border-radius: 8px;

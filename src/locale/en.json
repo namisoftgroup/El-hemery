@@ -53,7 +53,8 @@
     "busSeat": "Bus Seat",
     "arafatPlace": "Arafat Accommodation",
     "muzdalifahPlace": "Muzdalifah Accommodation",
-    "supervisors": "Supervisors"
+    "supervisors": "Supervisors",
+     "companions":"Links to you"
   },
   "support": {
       "complaint": "Complaint",
@@ -68,6 +69,7 @@
     "sendSuggestion": "Send Suggestion",
     "messageRequired": "Please write a message",
     "messageSent": "Your message has been sent successfully",
+    "sucess":"تم ارسال استبيانك بنجاح",
     "fileUploading": "Please wait, file is uploading...",
     "error": "An error occurred while sending"
   },
@@ -207,6 +209,14 @@
   "terms":{
     "Title": "Terms & Conditions",
     "SubTitle": "Please read these terms and conditions carefully before using the website or services."
-  }
+  },
+  "about":{
+  "company_title": "About Company",
+  "goals": "Goals",
+  "values": "Values",
+  "mission": "Mission",
+  "vision": "Vision"
+}
+
 
 }

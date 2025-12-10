@@ -1,23 +1,63 @@
+import { useTranslation } from "react-i18next";
+import useGetSettings from "../../hooks/useSettings";
+
 export default function About() {
+  const { data, isLoading, error } = useGetSettings();
+  const { t } = useTranslation();
+
+  if (isLoading) return <p style={{ textAlign: "center" }}>جاري التحميل...</p>;
+  if (error) return <p style={{ textAlign: "center", color: "red" }}>حدث خطأ في تحميل البيانات</p>;
+
   const cards = [
-    { icon: "fas fa-bullseye", title: "الأهداف", desc: "تقديم كافة أشكال الدعم وتلبية جميع احتياجات حجاج بيت الله الحرام وتوفير المناخ المناسب لآداء المناسك بسلامة وطمأنينة راجيين من المولى عزوجل&nbsp; التوفيق والسداد وتمام القبول" },
-    { icon: "fas fa-gem", title: "القيم", desc: "الحج شعيرة مقدسة ونداء مبارك من رب العباد يجيبه المسلمون إليها من شتى بقاع الأرض إمتثالاً لقول الله تبارك و تعالى ( وأذن فى الناس بالحج يأتوك رجالاً وعلى كل ضامر يأتين من كل فج عميق )" },
-    { icon: "fas fa-paper-plane", title: "الرسالة", desc: "خدمة حجاج بيت الله الحرام شرف ومقام رفيع وقربة إلى الله تبارك وتعالى تستوجب إنتقاء أفضل الكفاءات&nbsp; والخبرات وبذل أقصى الجهود لإنجاز هذه المهمة الشريفة على أكمل وجه&nbsp;" },
-    { icon: "fas fa-eye", title: "الرؤية", desc: "خدمة حجاج بيت الله الحرام شرف ومقام رفيع وقربة إلى الله تبارك وتعالى تستوجب إنتقاء أفضل الكفاءات والخبرات وبذل أقصى الجهود لإنجاز هذه المهمة الشريفة على أكمل وجه" },
+    {
+      icon: "fas fa-bullseye",
+      title: t("about.goals"),
+      desc: data?.goals_text,
+    },
+    {
+      icon: "fas fa-gem",
+      title: t("about.values"),
+      desc: data?.value_text,
+    },
+    {
+      icon: "fas fa-paper-plane",
+      title: t("about.mission"),
+      desc: data?.mission_text,
+    },
+    {
+      icon: "fas fa-eye",
+      title: t("about.vision"),
+      desc: data?.vision_text,
+    },
   ];
 
   return (
-    <section className="about-section"  id="about"> 
-      <div className="hero-cards container">
-        {cards.map((card, idx) => (
-          <div className="card" key={idx}>
-            <div className="icon">
-              <i className={card.icon}></i>
+    <section className="about-section" id="about">
+      <div className="container">
+
+        <div className="about-company">
+          <h2 className="about-title">{t("about.company_title")}</h2>
+
+          <div
+            dangerouslySetInnerHTML={{ __html: data?.about_company_text }}
+          />
+        </div>
+
+        <div className="hero-cards">
+          {cards.map((card, idx) => (
+            <div className="card" key={idx}>
+              <div className="icon">
+                <i className={card.icon}></i>
+              </div>
+              <h3 className="card-title">{card.title}</h3>
+              <div
+                className="card-desc"
+                dangerouslySetInnerHTML={{ __html: card.desc }}
+              />
             </div>
-            <h3 className="card-title">{card.title}</h3>
-            <p className="card-desc">{card.desc}</p>
-          </div>
-        ))}
+          ))}
+        </div>
+
       </div>
     </section>
   );

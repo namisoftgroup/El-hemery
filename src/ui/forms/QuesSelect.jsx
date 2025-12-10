@@ -5,26 +5,26 @@ export default function QuesSelect({ question, name, value, onChange }) {
 
       <div className="options">
         <label
-          className={`option_card ${value === "yes" ? "active" : ""}`}
+          className={`option_card ${value === "true" ? "active" : ""}`}
         >
           <input
             type="radio"
             name={name}
-            value="yes"
-            checked={value === "yes"}
+            value="true"
+            checked={value === "true"}
             onChange={onChange}
           />
           نعم
         </label>
 
         <label
-          className={`option_card ${value === "no" ? "active" : ""}`}
+          className={`option_card ${value === "false" ? "active" : ""}`}
         >
           <input
             type="radio"
             name={name}
-            value="no"
-            checked={value === "no"}
+            value="false"
+            checked={value === "false"}
             onChange={onChange}
           />
           لا

@@ -7,7 +7,7 @@ export default function InfoCard({ user }) {
     <div className="top-info-card">
       <div className="logo-section">
         <div className="logo-box">
-          <img src={"/images/2.png"} alt={user.name} />
+          <img src={"/images/logo.svg"} alt={user.name} />
         </div>
       </div>
 
