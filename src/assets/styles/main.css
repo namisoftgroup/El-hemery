@@ -2493,6 +2493,77 @@ body .faq-page .tab-content-wrapper .accordion .accordion-item.skeleton .skeleto
     opacity: 0.6;
   }
 }
+body .faq-page .coordinates-list {
+  margin-bottom: 24px;
+}
+body .faq-page .coordinates-list h3 {
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+body .faq-page .coordinates-list ul {
+  list-style: disc;
+  padding-left: 20px;
+}
+body .faq-page .coordinates-list ul li {
+  font-size: 14px;
+  margin-bottom: 8px;
+  color: #333;
+}
+body .faq-page .coordinates-list {
+  margin-bottom: 24px;
+}
+body .faq-page .coordinates-list ul {
+  list-style: none;
+  padding-left: 20px;
+}
+body .faq-page .coordinates-list ul li {
+  font-size: 18px;
+  margin-bottom: 8px;
+  color: #777;
+}
+body .faq-page .supervisors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+body .faq-page .supervisors-grid .supervisor-card {
+  background: rgba(142, 24, 56, 0.031372549);
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+body .faq-page .supervisors-grid .supervisor-card h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+body .faq-page .supervisors-grid .supervisor-card p {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 12px;
+}
+body .faq-page .supervisors-grid .supervisor-card .icons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+body .faq-page .supervisors-grid .supervisor-card .icons a {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 16px;
+}
+body .faq-page .supervisors-grid .supervisor-card .icons a.call {
+  background: #8e1838;
+}
+body .faq-page .supervisors-grid .supervisor-card .icons a.whatsapp {
+  background: #25d366;
+}
 body .faq-page .faq-cta {
   background: linear-gradient(135deg, #8e1838 0%, rgb(107.0987951807, 18.1012048193, 42.2361445783) 100%);
   border-radius: 16px;
@@ -2500,6 +2571,7 @@ body .faq-page .faq-cta {
   text-align: center;
   color: #fff;
   position: relative;
+  overflow: hidden;
 }
 body .faq-page .faq-cta::before {
   content: "";
