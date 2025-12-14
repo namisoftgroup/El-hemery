@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import chatAxios from "../utils/chatAxios";
 
 export default function useChat() {
@@ -81,6 +81,8 @@ export default function useChat() {
 
   // إرسال رسالة
   const sendMessage = async (text) => {
+    console.log("text:", text);
+
     if (!text.trim() || !activeThreadId) return;
     try {
       const userMsg = { type: "user", text };
@@ -88,7 +90,7 @@ export default function useChat() {
 
       const res = await chatAxios.post("/send", {
         message: text,
-        thread_id: activeThreadId,
+        thread_id_for_post: activeThreadId,
       });
 
       const botReply = { type: "bot", text: res?.data?.reply || "" };
@@ -106,9 +108,9 @@ export default function useChat() {
     }
   };
 
-  useEffect(() => {
-    getThreads();
-  }, []);
+  // useEffect(() => {
+  //   getThreads();
+  // }, []);
 
   return {
     threads,

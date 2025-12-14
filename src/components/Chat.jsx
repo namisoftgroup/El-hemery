@@ -1,36 +1,48 @@
 import { useState } from "react";
 import useChat from "../hooks/useChat";
+import useGetAllThreads from "../hooks/chat/useGetAllThreads";
+import useSendMessage from "../hooks/chat/useSendMessage";
+import useStartNewChat from "../hooks/chat/useStartNewChat";
 
 export default function FloatingChat() {
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
   const [showOldChats, setShowOldChats] = useState(false);
+  const { threads, isLoading } = useGetAllThreads(showOldChats);
+  const [activeThreadId, setActiveThreadId] = useState(null);
+  const { sendMessage, isPending } = useSendMessage();
+  const { startNewChat, isStartingChat } = useStartNewChat();
 
-  const {
-    threads,
-    messages,
-    loading,
-    startNewChat,
-    getMessages,
-    sendMessage,
-    activeThreadId,
-  } = useChat();
+  const { messages, loading, getMessages } = useChat();
 
   const handleSend = async (e) => {
     console.log("start sending in prod ");
-
+    const payload = {
+      message,
+      thread_id_for_post: activeThreadId,
+    };
     e.preventDefault();
     if (!message.trim()) return;
-    console.log("start sending in prod there is message  ");
+    console.log("start sending in prod there is message");
     console.log("message :", message);
 
-    await sendMessage(message);
-    // setMessage("");
+    sendMessage(payload, {
+      onSuccess: (res) => {},
+    });
+    setMessage("");
   };
 
   const handleOldChatClick = (threadId) => {
     setShowOldChats(false);
     getMessages(threadId);
+  };
+  const handleStartNewChat = () => {
+    startNewChat(null, {
+      onSuccess: (res) => {
+        console.log(res);
+        setActiveThreadId(res?.data?.new_thread_id);
+      },
+    });
   };
 
   return (
@@ -47,7 +59,6 @@ export default function FloatingChat() {
               &times;
             </button>
           </div>
-
           {/* أزرار التحكم */}
           <div className="chat-buttons">
             <button
@@ -56,11 +67,10 @@ export default function FloatingChat() {
             >
               دردشة قديمة
             </button>
-            <button className="new-chat" onClick={startNewChat}>
+            <button className="new-chat" onClick={handleStartNewChat}>
               دردشة جديدة
             </button>
           </div>
-
           {/* قائمة الشات القديم */}
           {showOldChats && (
             <div
@@ -71,12 +81,12 @@ export default function FloatingChat() {
                 className="old-chats-list"
                 onClick={(e) => e.stopPropagation()}
               >
-                {threads.filter((t) => t.messages.length > 0).length === 0 && (
+                {threads?.threads?.length === 0 && !isLoading && (
                   <p className="no-old-chats">لا توجد دردشات سابقة</p>
                 )}
 
-                {threads
-                  .filter((t) => t.messages.length > 0)
+                {threads?.threads
+                  ?.filter((t) => t.messages.length > 0)
                   .map((thread) => (
                     <div
                       key={thread.id}
@@ -91,7 +101,6 @@ export default function FloatingChat() {
               </div>
             </div>
           )}
-
           {/* جسم الشات */}
           <div className="chat-body">
             {messages.length === 0 && !loading && !showOldChats && (
@@ -115,7 +124,6 @@ export default function FloatingChat() {
               </div>
             ))}
           </div>
-
           {/* إدخال الرسائل */}
           <div className="chat-input">
             <input
@@ -126,7 +134,11 @@ export default function FloatingChat() {
               onKeyDown={(e) => e.key === "Enter" && handleSend(e)}
             />
             <button onClick={(e) => handleSend(e)}>
-              <i className="fa-solid fa-paper-plane"></i>
+              {isPending ? (
+                <i className="fa-solid fa-spinner"></i>
+              ) : (
+                <i className="fa-solid fa-paper-plane"></i>
+              )}
             </button>
           </div>
         </div>

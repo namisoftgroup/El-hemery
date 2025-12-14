@@ -9,7 +9,7 @@ const axiosInstance = axios.create();
 axiosInstance.interceptors.request.use(
   (config) => {
     const lang = localStorage.getItem("lang") || "ar";
-    config.headers["Accept-Language"] = lang; 
+    config.headers["Accept-Language"] = lang;
     return config;
   },
   (error) => {
