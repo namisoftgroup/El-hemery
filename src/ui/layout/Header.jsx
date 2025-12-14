@@ -6,6 +6,7 @@ import { setLanguage } from "../../redux/slices/settings";
 import { useQueryClient } from "@tanstack/react-query";
 import i18next from "i18next";
 import UserDropDown from "./UserDropDown";
+import { HashLink, NavHashLink } from "react-router-hash-link";
 
 export default function Header({ auth }) {
   // export default function Header() {
@@ -31,7 +32,6 @@ export default function Header({ auth }) {
     document.body.classList.remove("en", "ar");
     document.body.classList.add(newLang);
   };
-
 
   useEffect(() => {
     const header = document.querySelector(".header");
@@ -96,23 +96,16 @@ export default function Header({ auth }) {
           <Link to="/" className="logo">
             <img src="/images/logo.svg" alt="" />
           </Link>
-          <NavLink to="/" onClick={handleNavLinkClick}>
-            {t("header.home")}
-          </NavLink>
-          <NavLink to="#about" onClick={handleNavLinkClick}>
+          <NavLink to="/">{t("header.home")}</NavLink>
+
+          <HashLink smooth to="/#about">
             {t("header.about")}
-          </NavLink>
+          </HashLink>
 
-          <NavLink to="/services" onClick={handleNavLinkClick}>
-            {t("header.services")}
-          </NavLink>
-          <NavLink to="/daus" onClick={handleNavLinkClick}>
-            {t("header.duaa")}
-          </NavLink>
+          <NavLink to="/services">{t("header.services")}</NavLink>
+          <NavLink to="/daus">{t("header.duaa")}</NavLink>
 
-          <NavLink to="/contact" onClick={handleNavLinkClick}>
-            {t("header.contact")}
-          </NavLink>
+          <NavLink to="/contact">{t("header.contact")}</NavLink>
         </div>
 
         <div className="actions">

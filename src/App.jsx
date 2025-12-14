@@ -20,8 +20,7 @@ function App() {
     <>
       <Toaster expand={false} richColors position="bottom-right" />
       <RouterProvider router={router} />
-            <FloatingWebView />
-
+      <FloatingWebView />
     </>
   );
 }

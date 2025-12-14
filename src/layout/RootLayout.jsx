@@ -11,12 +11,15 @@ import useGetHelp from "../hooks/useGetHelp";
 export default function RootLayout() {
   const location = useLocation();
   useEffect(() => {
+    if (location.hash) {
+      return;
+    }
     window.scrollTo(0, 0);
   }, [location]);
 
   const auth = useAuth();
-  const {  isLoading: sliderLoading } = useGetHome();
-  const {  isLoading: registerLoading } = useGetHelp();
+  const { isLoading: sliderLoading } = useGetHome();
+  const { isLoading: registerLoading } = useGetHelp();
 
   if (auth.loading || sliderLoading || registerLoading) return <Preloader />;
 
