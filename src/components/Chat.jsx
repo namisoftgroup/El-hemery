@@ -17,10 +17,15 @@ export default function FloatingChat() {
   } = useChat();
 
   const handleSend = async (e) => {
+    console.log("start sending in prod ");
+
     e.preventDefault();
     if (!message.trim()) return;
+    console.log("start sending in prod there is message  ");
+    console.log("message :", message);
+
     await sendMessage(message);
-    setMessage("");
+    // setMessage("");
   };
 
   const handleOldChatClick = (threadId) => {
