@@ -1,13 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
 import chatAxios from "../../utils/chatAxios";
+import { getChatSessionId } from "../../utils/chatSession";
 
 export default function useGetAllThreads(enabled) {
-  console.log(enabled);
+  const sessionId = getChatSessionId();
 
   const { data: threads, isLoading } = useQuery({
-    queryKey: ["threads", enabled],
+    queryKey: ["threads", enabled, sessionId],
     queryFn: async () => {
-      const res = await chatAxios.get("/threads");
+      const res = await chatAxios.get("/threads", {
+        params: { session_id: sessionId },
+      });
+
       if (res.data.code !== 200) {
         throw new Error(res.data.message);
       }
@@ -15,7 +19,7 @@ export default function useGetAllThreads(enabled) {
 
       return res.data.data;
     },
-    enabled,
+    enabled: enabled && !!sessionId,
   });
   return { threads, isLoading };
 }

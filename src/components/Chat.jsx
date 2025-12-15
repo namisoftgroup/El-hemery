@@ -1,50 +1,143 @@
-import { useState } from "react";
-import useChat from "../hooks/useChat";
+import { useState, useEffect } from "react";
+import { useQueryClient } from "@tanstack/react-query";
+
 import useGetAllThreads from "../hooks/chat/useGetAllThreads";
 import useSendMessage from "../hooks/chat/useSendMessage";
 import useStartNewChat from "../hooks/chat/useStartNewChat";
+import useGetMessages from "../hooks/chat/useGetMessages";
+
+import { ensureChatSession, createNewChatSession } from "../utils/chatSession";
 
 export default function FloatingChat() {
+  const queryClient = useQueryClient();
+
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
   const [showOldChats, setShowOldChats] = useState(false);
-  const { threads, isLoading } = useGetAllThreads(showOldChats);
   const [activeThreadId, setActiveThreadId] = useState(null);
+  const [sessionId, setSessionId] = useState(null);
+
+  /* -------------------- SESSION INIT -------------------- */
+  useEffect(() => {
+    if (open) {
+      const sid = ensureChatSession();
+      if (sid) {
+        setSessionId(sid);
+      } else {
+        createNewChatSession();
+      }
+    }
+  }, [open]);
+
+  /* -------------------- DATA -------------------- */
+  const { threads, isLoading: isLoadingThreads } = useGetAllThreads(
+    showOldChats,
+    sessionId
+  );
+
+  const { messages = [], isGettingMessages } = useGetMessages(
+    activeThreadId,
+    sessionId
+  );
+
   const { sendMessage, isPending } = useSendMessage();
   const { startNewChat, isStartingChat } = useStartNewChat();
 
-  const { messages, loading, getMessages } = useChat();
+  const messagesQueryKey = ["messages", activeThreadId, sessionId];
 
-  const handleSend = async (e) => {
-    console.log("start sending in prod ");
+  /* -------------------- SEND MESSAGE -------------------- */
+  const handleSend = () => {
+    if (!message.trim() || isPending || !sessionId) return;
+
+    const messageToSend = message.trim();
+    const tempId = Date.now();
+
     const payload = {
-      message,
+      message: messageToSend,
       thread_id_for_post: activeThreadId,
+      session_id: sessionId,
     };
-    e.preventDefault();
-    if (!message.trim()) return;
-    console.log("start sending in prod there is message");
-    console.log("message :", message);
 
+    const optimisticMessage = {
+      id: tempId,
+      content: messageToSend,
+      role: "user",
+      isOptimistic: true,
+    };
+
+    const previousData = queryClient.getQueryData(messagesQueryKey);
+
+    queryClient.setQueryData(messagesQueryKey, (old) => ({
+      ...old,
+      messages: [...(old?.messages || []), optimisticMessage],
+    }));
     sendMessage(payload, {
-      onSuccess: (res) => {},
+      onSuccess: (res, variables, context) => {
+        console.log("onSuccess :", res);
+
+        const confirmedMessage = {
+          ...res.data.newMessage,
+          isOptimistic: false,
+        };
+        console.log("confirmed message", confirmedMessage);
+
+        queryClient.setQueryData(messagesQueryKey, (old) => ({
+          ...old,
+          messages: old.messages.map((msg) =>
+            msg.id === context.tempId ? confirmedMessage : msg
+          ),
+        }));
+
+        if (!activeThreadId && res.data.new_thread_id) {
+          setActiveThreadId(res.data.new_thread_id);
+          queryClient.invalidateQueries({
+            queryKey: ["threads", sessionId],
+          });
+        }
+      },
+
+      onError: (e) => {
+        console.log(e.message);
+
+        queryClient.setQueryData(messagesQueryKey, previousData);
+      },
+
+      onSettled: () => {
+        queryClient.invalidateQueries({ queryKey: messagesQueryKey });
+      },
     });
+
     setMessage("");
   };
 
+  /* -------------------- OLD CHAT CLICK -------------------- */
   const handleOldChatClick = (threadId) => {
     setShowOldChats(false);
-    getMessages(threadId);
-  };
-  const handleStartNewChat = () => {
-    startNewChat(null, {
-      onSuccess: (res) => {
-        console.log(res);
-        setActiveThreadId(res?.data?.new_thread_id);
-      },
-    });
+    setActiveThreadId(threadId);
   };
 
+  /* -------------------- NEW CHAT -------------------- */
+  const handleStartNewChat = () => {
+    setActiveThreadId(null);
+
+    queryClient.removeQueries({ queryKey: ["messages"] });
+    queryClient.removeQueries({ queryKey: ["threads"] });
+
+    startNewChat(
+      { session_id: sessionId },
+      {
+        onSuccess: (res) => {
+          setActiveThreadId(res?.data?.new_thread_id);
+          queryClient.invalidateQueries({
+            queryKey: ["threads", sessionId],
+          });
+        },
+      }
+    );
+  };
+  const messageList = messages?.messages ?? [];
+  const hasMessages = messageList.length > 0;
+  /* -------------------- UI -------------------- */
   return (
     <>
       <div className="floating-icon" onClick={() => setOpen(true)}>
@@ -59,51 +152,54 @@ export default function FloatingChat() {
               &times;
             </button>
           </div>
-          {/* أزرار التحكم */}
+
           <div className="chat-buttons">
             <button
+              onClick={() => setShowOldChats((p) => !p)}
               className="old-chat"
-              onClick={() => setShowOldChats((prev) => !prev)}
             >
               دردشة قديمة
             </button>
-            <button className="new-chat" onClick={handleStartNewChat}>
+            <button onClick={handleStartNewChat} disabled={isStartingChat}>
               دردشة جديدة
             </button>
           </div>
-          {/* قائمة الشات القديم */}
-          {showOldChats && (
-            <div
-              className="old-chats-overlay"
-              onClick={() => setShowOldChats(false)}
-            >
-              <div
-                className="old-chats-list"
-                onClick={(e) => e.stopPropagation()}
-              >
-                {threads?.threads?.length === 0 && !isLoading && (
-                  <p className="no-old-chats">لا توجد دردشات سابقة</p>
-                )}
 
-                {threads?.threads
-                  ?.filter((t) => t.messages.length > 0)
-                  .map((thread) => (
-                    <div
-                      key={thread.id}
-                      className={`old-chat-item ${
-                        thread.id === activeThreadId ? "active" : ""
-                      }`}
-                      onClick={() => handleOldChatClick(thread.id)}
-                    >
-                      🗨️ {thread.messages[0].text}
-                    </div>
-                  ))}
+          {showOldChats && (
+            <div className="old-chats-overlay">
+              <div className="d-flex align-items-center justify-content-between">
+                <p className="m-0"> الدردشات القديمة</p>
+
+                <button
+                  className="close-chat fs-5"
+                  onClick={() => setShowOldChats(false)}
+                >
+                  &times;
+                </button>
+              </div>
+              <div className="old-chats-list">
+                {isLoadingThreads && <p>جاري التحميل...</p>}
+                {threads?.threads?.map((thread) => (
+                  <button
+                    key={thread?.id}
+                    onClick={() => handleOldChatClick(thread?.id)}
+                    className=""
+                  >
+                    {thread?.title}
+                  </button>
+                ))}
               </div>
             </div>
           )}
-          {/* جسم الشات */}
+
           <div className="chat-body">
-            {messages.length === 0 && !loading && !showOldChats && (
+            {isGettingMessages && <p>جاري تحميل الرسائل...</p>}
+            {console.log(
+              messages?.messages?.length === 0 || !isGettingMessages
+            )}
+            {console.log(messages?.messages?.length === 0, !isGettingMessages)}
+            {console.log(messages?.messages?.length)}
+            {!isGettingMessages && !hasMessages && (
               <div className="chat-center">
                 <div className="chat-images">
                   <img src="/icons/robot.svg" alt="robot" />
@@ -113,32 +209,28 @@ export default function FloatingChat() {
               </div>
             )}
 
-            {messages.map((msg, idx) => (
+            {messages?.messages?.map((msg) => (
               <div
-                key={idx}
+                key={msg.id}
                 className={`chat-message ${
-                  msg.type === "user" ? "user" : "bot"
+                  msg?.role === "user" ? "user" : "bot"
                 }`}
               >
-                {msg.text}
+                {msg?.content}
+                {msg.isOptimistic && <span>...</span>}
               </div>
             ))}
           </div>
-          {/* إدخال الرسائل */}
+
           <div className="chat-input">
             <input
-              type="text"
-              placeholder="اسأل مساعدك الذكي"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && handleSend(e)}
+              onKeyDown={(e) => e.key === "Enter" && handleSend()}
+              placeholder="اسأل مساعدك الذكي"
             />
-            <button onClick={(e) => handleSend(e)}>
-              {isPending ? (
-                <i className="fa-solid fa-spinner"></i>
-              ) : (
-                <i className="fa-solid fa-paper-plane"></i>
-              )}
+            <button onClick={handleSend} disabled={isPending}>
+              إرسال
             </button>
           </div>
         </div>
