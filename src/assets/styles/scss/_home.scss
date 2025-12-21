@@ -1259,3 +1259,91 @@
     color: $main;
   }
 }
+///
+.joinus {
+  .tabs-navigation {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    justify-content: center;
+
+    .tab-btn {
+      flex: 1 1 auto;
+      padding: 1rem 0;
+      font-size: 1.1rem;
+      border: none;
+      background: $white;
+      cursor: pointer;
+      transition: all 0.2s;
+      border-radius: 8px;
+
+      &.active {
+        background: $main;
+        color: #fff;
+      }
+    }
+  }
+
+  .tab-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    .alert-box {
+      padding: 1rem 1.5rem;
+      background: #e4abba2d;
+      border-radius: 8px;
+      border: 1px solid #e4abbabe;
+      font-size: 1rem;
+      text-align: center;
+    }
+    .card {
+      padding: 1.5rem 1rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+      background: #fff;
+
+      h4 {
+        margin-bottom: 1rem;
+        font-size: 1.2rem;
+        color: $main;
+        font-weight: 700;
+      }
+
+      ul {
+        list-style-type: disc;
+        padding: 1.5rem;
+
+        li {
+          margin-bottom: 0.7rem;
+        }
+      }
+    }
+
+    .duties-card {
+      border-left: 4px solid $main;
+    }
+
+    .benefits-card {
+      border-left: 4px solid darken($main, 10%);
+    }
+
+    .btn-main {
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      background: $main;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      margin-top: 1.5rem;
+      cursor: pointer;
+      transition: background 0.2s;
+
+      &:hover {
+        background: darken($main, 10%);
+      }
+    }
+  }
+
+
+}

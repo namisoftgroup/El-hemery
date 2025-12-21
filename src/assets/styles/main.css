@@ -301,7 +301,6 @@ button {
   font-size: 16px;
 }
 
-/* overlay صغير داخل chat-widget يظهر من الجنب */
 .old-chats-overlay {
   position: absolute;
   top: 0;
@@ -2200,6 +2199,78 @@ body .register-help-page .media-card .media-item video {
 body .register-help-page .swiper-button-next,
 body .register-help-page .swiper-button-prev {
   color: #8e1838;
+}
+body .joinus .tabs-navigation {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  justify-content: center;
+}
+body .joinus .tabs-navigation .tab-btn {
+  flex: 1 1 auto;
+  padding: 1rem 0;
+  font-size: 1.1rem;
+  border: none;
+  background: #fff;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-radius: 8px;
+}
+body .joinus .tabs-navigation .tab-btn.active {
+  background: #8e1838;
+  color: #fff;
+}
+body .joinus .tab-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+body .joinus .tab-content .alert-box {
+  padding: 1rem 1.5rem;
+  background: rgba(228, 171, 186, 0.1764705882);
+  border-radius: 8px;
+  border: 1px solid rgba(228, 171, 186, 0.7450980392);
+  font-size: 1rem;
+  text-align: center;
+}
+body .joinus .tab-content .card {
+  padding: 1.5rem 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  background: #fff;
+}
+body .joinus .tab-content .card h4 {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  color: #8e1838;
+  font-weight: 700;
+}
+body .joinus .tab-content .card ul {
+  list-style-type: disc;
+  padding: 1.5rem;
+}
+body .joinus .tab-content .card ul li {
+  margin-bottom: 0.7rem;
+}
+body .joinus .tab-content .duties-card {
+  border-left: 4px solid #8e1838;
+}
+body .joinus .tab-content .benefits-card {
+  border-left: 4px solid rgb(98.3734939759, 16.6265060241, 38.7951807229);
+}
+body .joinus .tab-content .btn-main {
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  background: #8e1838;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  margin-top: 1.5rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+body .joinus .tab-content .btn-main:hover {
+  background: rgb(98.3734939759, 16.6265060241, 38.7951807229);
 }
 body .auth_section {
   padding: 20px;

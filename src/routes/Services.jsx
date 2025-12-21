@@ -1,19 +1,19 @@
 import { useState } from "react";
-import axiosInstance from "../utils/axiosInstance";
 import PageHeader from "../components/PageHeader.jsx";
-import { Link } from "react-router";
 import { useTranslation } from "react-i18next";
+import ServicesCTA from "../components/services/ServicesCTA";
 
-import useGetGuides from "../hooks/services/useGetGuides.js";
-import useGetFaqs from "../hooks/services/useGetFaqs.js";
-import useGetByCar from "../hooks/services/useGetBycar.js";
-import useGetWalk from "../hooks/services/useGetWalk.js";
-import useGetSupervisors from "../hooks/services/useGetCoordinate.js";
-import useGetCommonFatwa from "../hooks/services/useGetCommonFatwa.js";
-import useGetGroups from "../hooks/services/useGetGroups.js";
+import useGetGuides from "../hooks/services/useGetGuides";
+import useGetFaqs from "../hooks/services/useGetFaqs";
+import useGetByCar from "../hooks/services/useGetBycar";
+import useGetWalk from "../hooks/services/useGetWalk";
+import useGetSupervisors from "../hooks/services/useGetCoordinate";
+import useGetCommonFatwa from "../hooks/services/useGetCommonFatwa";
+import useGetGroups from "../hooks/services/useGetGroups";
 
 import AccordionList from "../components/services/AccordionList";
 import TabsNavigation from "../components/services/TabsNavigation";
+import GroupsTab from "../components/services/GroupsTab";
 
 export default function Services() {
   const [activeTab, setActiveTab] = useState(0);
@@ -28,26 +28,6 @@ export default function Services() {
   const { data: groups, isLoading: loadingGroups } = useGetGroups();
 
   const { t } = useTranslation();
-
-  const [activeGroupId, setActiveGroupId] = useState(null);
-  const [groupDetailsMap, setGroupDetailsMap] = useState({});
-  const [loadingGroupId, setLoadingGroupId] = useState(null);
-
-  const fetchGroupDetails = async (id) => {
-    try {
-      setLoadingGroupId(id);
-      const res = await axiosInstance.get(`/groups/${id}`);
-      setGroupDetailsMap((prev) => ({
-        ...prev,
-        [id]: res.data.data,
-      }));
-    } catch (err) {
-      console.error("Error loading group details:", err);
-    } finally {
-      setLoadingGroupId(null);
-    }
-  };
-
   const tabs = [
     {
       id: 0,
@@ -149,146 +129,7 @@ export default function Services() {
 
             {/*  GROUPS TAB */}
             {currentTab.type === "groups" ? (
-              <div className="accordion">
-                {groups?.map((group) => {
-                  const details = groupDetailsMap[group.id];
-                  const isOpen = activeGroupId === group.id;
-                  const isLoading = loadingGroupId === group.id;
-
-                  return (
-                    <div
-                      key={group.id}
-                      className={`accordion-item ${isOpen ? "active" : ""}`}
-                    >
-                      {/* Header */}
-                      <button
-                        type="button"
-                        className="accordion-header"
-                        onClick={() => {
-                          if (isOpen) {
-                            setActiveGroupId(null);
-                          } else {
-                            setActiveGroupId(group.id);
-                            if (!groupDetailsMap[group.id]) {
-                              fetchGroupDetails(group.id);
-                            }
-                          }
-                        }}
-                      >
-                        <h3 className="accordion-title">{group.title}</h3>
-                        <span className="accordion-icon">
-                          <i className="fa-solid fa-chevron-down"></i>
-                        </span>
-                      </button>
-
-                      {/* Body */}
-                      <div className="accordion-body">
-                        <div className="accordion-content">
-                          {isLoading ? (
-                            <p>{t("group.loading")}</p>
-                          ) : (
-                            <>
-                              {/* ===== Group Details ===== */}
-                              <div className="group-details">
-                                <div className="details-row">
-                                  <strong>{t("group.address")}</strong>
-                                  <span>{details?.address}</span>
-                                </div>
-
-                                <div className="details-row">
-                                  <strong>{t("group.time")}</strong>
-                                  <span>{details?.time}</span>
-                                </div>
-
-                                {/* ===== Supervisors ===== */}
-                                {details?.supervisors?.length > 0 && (
-                                  <div className="group-supervisors">
-                                    <h4>{t("group.supervisors")}</h4>
-
-                                    {details.supervisors.map((sup) => (
-                                      <div
-                                        key={sup.id}
-                                        className="supervisor-card"
-                                      >
-                                        <div className="sup-info">
-                                          <p className="sup-name">{sup.name}</p>
-
-                                          {sup.description && (
-                                            <span className="sup-desc">
-                                              {sup.description}
-                                            </span>
-                                          )}
-                                        </div>
-
-                                        <div className="icons">
-                                          {sup.phone && (
-                                            <a
-                                              href={`tel:${sup.phone}`}
-                                              className="call"
-                                            >
-                                              <i className="fa-solid fa-phone" />
-                                            </a>
-                                          )}
-
-                                          {sup.whatsapp && (
-                                            <a
-                                              href={`https://wa.me/${sup.whatsapp}`}
-                                              target="_blank"
-                                              rel="noreferrer"
-                                              className="whatsapp"
-                                            >
-                                              <i className="fa-brands fa-whatsapp" />
-                                            </a>
-                                          )}
-                                        </div>
-                                      </div>
-                                    ))}
-                                  </div>
-                                )}
-
-                                {/* Location Buttons */}
-                                {details?.latitude && details?.longitude && (
-                                  <div className="location-actions">
-                                    <button
-                                      type="button"
-                                      className="btn-location outline"
-                                      onClick={() => {
-                                        const url = `https://www.google.com/maps?q=${details.latitude},${details.longitude}`;
-                                        if (navigator.share) {
-                                          navigator.share({
-                                            title: details.title,
-                                            url,
-                                          });
-                                        } else {
-                                          navigator.clipboard.writeText(url);
-                                          alert(t("group.locationCopied"));
-                                        }
-                                      }}
-                                    >
-                                      <i className="fa-solid fa-share-nodes"></i>
-                                      {t("group.shareLocation")}
-                                    </button>
-
-                                    <a
-                                      href={`https://www.google.com/maps/dir/?api=1&destination=${details.latitude},${details.longitude}`}
-                                      target="_blank"
-                                      rel="noreferrer"
-                                      className="btn-location"
-                                    >
-                                      <i className="fa-solid fa-location-arrow"></i>
-                                      {t("group.goToLocation")}
-                                    </a>
-                                  </div>
-                                )}
-                              </div>
-                            </>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
+              <GroupsTab groups={groups} />
             ) : currentTab.type === "supervisors" ? (
               <>
                 {data?.coordinates?.length > 0 && (
@@ -342,21 +183,8 @@ export default function Services() {
           </div>
 
           {/* CTA */}
-          <div className="faq-cta">
-            <div className="cta-content">
-              <h3>{t("faqs.ctaTitle")}</h3>
-              <p>{t("faqs.ctaSubtitle")}</p>
-              <div className="cta-buttons">
-                <Link to="/contact" className="btn btn-primary">
-                  <i className="fa-solid fa-phone"></i> {t("faqs.callUs")}
-                </Link>
-                <Link to="/contact" className="btn btn-secondary">
-                  <i className="fa-solid fa-envelope"></i>{" "}
-                  {t("faqs.sendMessage")}
-                </Link>
-              </div>
-            </div>
-          </div>
+          <ServicesCTA />
+
         </div>
       </div>
     </section>

@@ -61,8 +61,8 @@ export default function Footer() {
       to: "/terms-conditions",
     },
     {
-      label: t("footer.bottom.help"),
-      to: "/helpinregister",
+      label: t("footer.bottom.jobs"),
+      to: "/jobs",
     },
     {
       label: t("footer.bottom.contact"),

@@ -8,8 +8,6 @@ export default function Gallery() {
   const [open, setOpen] = useState(false);
   const [current, setCurrent] = useState(0);
 
-  // if (isLoading) return <p>Loading...</p>;
-  // if (error) return <p>Failed to load gallery</p>;
 
   const IMAGES = data?.map((item) => item.file) || [];
 

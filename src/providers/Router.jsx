@@ -12,6 +12,8 @@ import ProtectionProvider from "./ProtectionProvider";
 import Terms from "../routes/Terms";
 import Services from "../routes/Services";
 import HelpRegister from "../routes/HelpRegister";
+import Jobs from "../routes/jobs";
+import JoinUs from "../routes/JoinUs";
 
 export const router = createBrowserRouter([
   {
@@ -59,7 +61,15 @@ export const router = createBrowserRouter([
       {
         path:"terms-conditions",
         element: <Terms />,
-
+      },
+        {
+        path:"jobs",
+        element: <Jobs />,
+      }
+      ,
+        {
+        path:"joinus",
+        element: <JoinUs />,
       }
     ],
   },

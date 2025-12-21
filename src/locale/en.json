@@ -38,9 +38,9 @@
     "idNumber": "ID Number",
     "enterIdNumber": "Enter ID Number",
     "signIn": "Sign In",
-    "loginSuccess" :"login successfully",
+    "loginSuccess": "login successfully",
     "logout_success": " logout successfully",
-    "loginFailed":" loginFailed"
+    "loginFailed": " loginFailed"
   },
   "profile": {
     "Title": "Profile",
@@ -54,13 +54,13 @@
     "arafatPlace": "Arafat Accommodation",
     "muzdalifahPlace": "Muzdalifah Accommodation",
     "supervisors": "Supervisors",
-     "companions":"Links to you"
+    "companions": "Links to you"
   },
   "support": {
-      "complaint": "Complaint",
+    "complaint": "Complaint",
     "request": "Request",
     "suggestion": "Suggestion",
-   "surveys":"surveys",
+    "surveys": "surveys",
     "complaintPlaceholder": "Write your complaint here",
     "requestPlaceholder": "Write your request here",
     "suggestionPlaceholder": "Write your suggestion here",
@@ -69,18 +69,18 @@
     "sendSuggestion": "Send Suggestion",
     "messageRequired": "Please write a message",
     "messageSent": "Your message has been sent successfully",
-    "sucess":"تم ارسال استبيانك بنجاح",
+    "sucess": "تم ارسال استبيانك بنجاح",
     "fileUploading": "Please wait, file is uploading...",
     "error": "An error occurred while sending"
   },
-  "notifications":{
-    "Title":"Notifications",
-    "SubTitle":"Stay up-to-date with the latest updates and alerts."
+  "notifications": {
+    "Title": "Notifications",
+    "SubTitle": "Stay up-to-date with the latest updates and alerts."
   },
-  "gallery":{
-  "Title":" Photo gallery"
-},
- "duasPage": {
+  "gallery": {
+    "Title": " Photo gallery"
+  },
+  "duasPage": {
     "title": "Hajj & Umrah Supplications",
     "subtitle": "Authentic and brief supplications to read during rituals",
     "enableCompass": "Enable compass on iPhone",
@@ -89,16 +89,16 @@
     "compassTitle": "Compass",
     "compassDesc": "Qibla direction based on your location and device orientation"
   },
- "faqs": {
-  "Title": "Company Services",
-  "SubTitle": "Everything you need to know about our services",
+  "faqs": {
+    "Title": "Company Services",
+    "SubTitle": "Everything you need to know about our services",
     "guides": "Guidance & Instructional Manual",
     "mostCommon": "Most Common Questions",
     "carTravelers": "Travelers with their Cars",
     "routePlan": "Route & Return Plan",
-    "coordinates":"coordinates",
-    "commonfatwa":"Common Fatwa",
-    "groups":" Gathering Places",
+    "coordinates": "coordinates",
+    "commonfatwa": "Common Fatwa",
+    "groups": " Gathering Places",
     "ctaTitle": "Didn't find what you're looking for?",
     "ctaSubtitle": "Contact us directly and our team will be happy to answer all your inquiries",
     "callUs": "Call Us",
@@ -109,7 +109,7 @@
     "subtitle": "Starts Here",
     "description": "We provide full Hajj and Umrah services at Al Hamiry with the highest standards of comfort and safety for pilgrims.",
     "helpinregister": "Help In Register",
-    "contactUs": "Contact Us",
+    "joinus": "Join Us",
     "stats": {
       "experience": "Years of Experience",
       "hajjPilgrims": "Pilgrims Served",
@@ -148,7 +148,7 @@
     },
     "bottom": {
       "privacy": "Terms and Conditions",
-      "help": "Help in Register ",
+      "jobs": "Jobs and Tasks ",
       "contact": "Contact Us"
     },
     "rights": "All rights reserved"
@@ -190,7 +190,7 @@
       "Use the digital tasbeeh to easily track your daily remembrance",
       "Recite 'Subhan Allah' 33 times after each prayer for a great reward"
     ]
-  } ,
+  },
   "contact": {
     "title": "Contact Us",
     "subtitle": "We are here to answer your questions and assist you with whatever you need",
@@ -209,17 +209,21 @@
     "whats": "WhatsApp",
     "tiktok": "TikTok"
   },
-  "terms":{
+  "terms": {
     "Title": "Terms & Conditions",
     "SubTitle": "Please read these terms and conditions carefully before using the website or services."
   },
-  "about":{
-  "company_title": "About Company",
-  "goals": "Goals",
-  "values": "Values",
-  "mission": "Mission",
-  "vision": "Vision"
-},
+  "jobs": {
+    "Title": "Jobs and Tasks for you",
+    "SubTitle": "Stay up-to-date with the latest updates and alerts."
+  },
+  "about": {
+    "company_title": "About Company",
+    "goals": "Goals",
+    "values": "Values",
+    "mission": "Mission",
+    "vision": "Vision"
+  },
   "helpRegister": {
     "title": "Help with Registration",
     "subtitle": "Get assistance from Hajj service coordinators",
@@ -235,6 +239,30 @@
     "shareLocation": "Share Location",
     "goToLocation": "Go to Location",
     "locationCopied": "Location link copied"
+  },
+  "join": {
+    "Title": "Join Us",
+    "SubTitle": " Volunteering is an opportunity to learn new skills, make friends, and contribute to the community",
+    "pilgrim": "Pilgrim",
+    "nonPilgrim": "Non-Pilgrim",
+    "volunteerBtn": "Register and Join Us",
+    "duties": "Volunteer Duties:",
+    "benefits": "Benefits of Volunteering for Pilgrims:",
+    "requirments": "Requirments",
+    "volunteerFormTitle": " Volunteer Registration Form",
+    "nonVolunteerFormTitle": "Non-Pilgrim Registration Form",
+    "name": "Name ",
+    "age": "Age",
+    "bookingNumber": "Booking Number",
+    "city": "City",
+    "nationality": "Nationality",
+    "phoneCode": "Phone Code",
+    "phone": "Phone Number",
+    "experience": "Experience",
+    "send": "Send",
+    "errorMessage": "An error occurred, please try again later",
+    "successMessage": "You have been successfully registered, thank you for volunteering with us"
+
   }
 
 }

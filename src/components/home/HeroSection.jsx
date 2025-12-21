@@ -57,8 +57,8 @@ export default function HeroSection() {
           <Link to="/helpinregister" className="primary-btn">
             {t("hero.helpinregister")}
           </Link>
-          <Link to="/contact" className="secondary-btn">
-            {t("hero.contactUs")}
+          <Link to="/joinus" className="secondary-btn">
+            {t("hero.joinus")}
           </Link>
         </div>
       </div>

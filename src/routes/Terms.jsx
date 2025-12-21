@@ -1,15 +1,17 @@
 import useGetSettings from "../hooks/useSettings";
 import PageHeader from "../components/PageHeader";
+import { useTranslation } from "react-i18next";
 
 export default function Terms() {
   const { data: settings } = useGetSettings();
+  const { t } = useTranslation();
 
   return (
     <section className="main_section terms">
-         <PageHeader
-        title="Terms & Conditions"
-        subtitle="Please read carefully"
-      />
+          <PageHeader 
+               title={t("terms.Title")} 
+               subtitle={t("terms.SubTitle")} 
+             />
       <div className="container">
         <div className="row">
      
