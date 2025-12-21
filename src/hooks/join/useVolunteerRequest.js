@@ -1,40 +1,40 @@
-// hooks/join/useVolunteerRequest.js
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import axiosInstance from "../../utils/axiosInstance";
 
 export default function useVolunteerRequest(t, onSuccess, type) {
-  // ✅ default values حسب النوع
-  const defaultValues =
-    type === "hajj"
-      ? {
-          name: "",
-          age: "",
-          booking_number: "",
-          city: "",
-        }
-      : {
-          name: "",
-          age: "",
-          nationality: "",
-          phone_code: "",
-          phone: "",
-          experience: "",
-        };
+ const defaultValues =
+  type === "hajj"
+    ? {
+        name: "",
+        age: "",
+        booking_number: "",
+        city: "",
+      }
+    : {
+        name: "",
+        age: "",
+        nationality: "",
+        phone: "",
+        phone_code: "",
+        country_iso: "",
+        experience: "",
+      };
+
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
+    setValue,
   } = useForm({
     defaultValues,
   });
 
   const mutation = useMutation({
     mutationFn: async (data) => {
-      // 🧠 body ذكي
       const body = {
         ...data,
         type,
@@ -66,5 +66,6 @@ export default function useVolunteerRequest(t, onSuccess, type) {
     errors,
     isLoading: mutation.isLoading,
     reset,
+   setValue, 
   };
 }

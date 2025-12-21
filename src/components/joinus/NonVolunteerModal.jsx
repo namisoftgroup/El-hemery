@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import InputField from "../../ui/forms/InputField";
 import SubmitButton from "../../ui/forms/SubmitButton";
 import useVolunteerRequest from "../../hooks/join/useVolunteerRequest";
+import PhoneField from "../../ui/forms/PhoneField";
 
 export default function NonVolunteerModal({ show, setShow }) {
     const { t } = useTranslation();
@@ -14,6 +15,8 @@ export default function NonVolunteerModal({ show, setShow }) {
         errors,
         isLoading,
         reset,
+        setValue, // 👈 مهم
+
     } = useVolunteerRequest(
         t,
         () => setShow(false),
@@ -52,7 +55,7 @@ export default function NonVolunteerModal({ show, setShow }) {
                         error={errors.nationality?.message}
                     />
 
-                    <div className="row">
+                    {/* <div className="row">
                         <div className="col-4">
                             <InputField
                                 label={t("join.phoneCode")}
@@ -68,7 +71,12 @@ export default function NonVolunteerModal({ show, setShow }) {
                                 error={errors.phone?.message}
                             />
                         </div>
-                    </div>
+                    </div> */}
+                    <PhoneField
+                        label={t("join.phone")}
+                        setValue={setValue}
+                        error={errors.phone?.message}
+                    />
 
                     <InputField
                         label={t("join.experience")}

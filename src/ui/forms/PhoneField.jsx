@@ -2,31 +2,37 @@ import { Form } from "react-bootstrap";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 
-export default function PhoneField({ label, error, setValue, ...props }) {
+export default function PhoneField({ label, error, setValue, defaultCountry = "sa" }) {
   const handlePhoneChange = (value, data) => {
-    const countryIso = data?.countryCode?.toUpperCase();
-    const phoneCode = `+${data?.dialCode}`;
+    if (!setValue) return;
 
-    const whatsapp = value.startsWith(data.dialCode)
-      ? value.slice(data.dialCode.length)
-      : value;
+    const phoneCode = `+${data.dialCode}`;
+    const phoneNumber = value.replace(data.dialCode, "");
 
-    setValue("whatsapp", whatsapp);
-    setValue("phone_code", phoneCode);
-    setValue("country_iso", countryIso);
+    setValue("phone", phoneNumber, { shouldValidate: true });
+    setValue("phone_code", phoneCode, { shouldValidate: true });
+    setValue("country_iso", data.countryCode?.toUpperCase(), { shouldValidate: true });
   };
 
   return (
-    <div className="form_field w-100">
-      {label && <label htmlFor={props?.id}>{label}</label>}
+    <div className="form_field w-100 phone-field-wrapper">
+      {label && <label className="mb-1">{label}</label>}
+
       <PhoneInput
-        {...props}
-        country={"sa"}
-        enableSearch={true}
+        country={defaultCountry}
+        enableSearch
         onChange={handlePhoneChange}
+        inputClass={`form-control ${error ? "is-invalid" : ""}`}
+        buttonClass="phone-dropdown-btn"
+        containerClass="phone-input-container"
+        dropdownStyle={{ zIndex: 9999 }}
+        inputStyle={{ paddingLeft: "80px" }} // مساحة للكود + العلم
       />
+
       {error && (
-        <Form.Control.Feedback type="invalid">{error}</Form.Control.Feedback>
+        <Form.Control.Feedback type="invalid" className="d-block">
+          {error}
+        </Form.Control.Feedback>
       )}
     </div>
   );
